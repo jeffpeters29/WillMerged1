@@ -1,0 +1,37 @@
+﻿@page
+@model Qwill.Pages.Step2Model
+@{
+    ViewData["Title"] = "Step2";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h2>Step2</h2>
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-6 offset-3">
+            <div>
+                <partial name="_ErrorMessages" for="ErrorMessage" />
+
+                <form method="post" asp-page-handler="Step2Form">
+                    <input type="hidden" asp-for="WillInfo.Id" />
+
+                    <div class="mb-3">
+                        <h3 id="childrenMessage"></h3>
+                    </div>
+
+                    <div class="mb-5">
+                        <button>-</button>
+                        <h3 id="childrenNumber"></h3>
+                        <button>+</button>
+                    </div>
+
+                    <button class="btn btn-primary btn-block" type="submit">Next</button>
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+</div>

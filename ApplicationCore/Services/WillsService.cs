@@ -11,12 +11,12 @@ namespace ApplicationCore.Services
     public class WillsService : IWillsService
     {
         private readonly IRepository<Will> _willRepository;
-        private readonly IAppLogger<WillsService> _appLogger;
+        private readonly IAppLogger<WillsService> _logger;
 
         public WillsService(IRepository<Will> willRepository, IAppLogger<WillsService> appLogger)
         {
             _willRepository = willRepository;
-            _appLogger = appLogger;
+            _logger = appLogger;
         }
 
         public Result AddOrUpdate(Will will)
@@ -45,7 +45,7 @@ namespace ApplicationCore.Services
             }
             catch (Exception ex)
             {
-                _appLogger.LogWarning($"WillsService : Error saving {will.Id}", ex.Message);
+                _logger.LogWarning($"WillsService : Error saving {will.Id}", ex.Message);
                 return new Result
                 {
                     Success = false,

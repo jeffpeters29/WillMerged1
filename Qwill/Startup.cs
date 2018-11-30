@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Qwill.Interfaces;
+using Qwill.Services;
 
 namespace Qwill
 {
@@ -36,6 +38,7 @@ namespace Qwill
             services.AddScoped(typeof(IAsyncRepository<>), typeof(EfRepository<>));
 
             services.AddTransient<IWillsService, WillsService>();
+            services.AddTransient<IWillVmService, WillVmService>();
 
             services.AddScoped(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
 

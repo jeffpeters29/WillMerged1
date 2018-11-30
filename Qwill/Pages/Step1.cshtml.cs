@@ -1,8 +1,7 @@
-﻿using ApplicationCore.Entities;
-using ApplicationCore.Helpers;
-using ApplicationCore.Interfaces;
+﻿using ApplicationCore.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Qwill.Interfaces;
 using Qwill.ViewModels;
 using System;
 
@@ -10,17 +9,19 @@ namespace Qwill.Pages
 {
     public class Step1Model : PageModel
     {
-        private readonly IWillsService _willService;
-        private readonly IAppLogger<EditModel> _appLogger;
+        private readonly IWillVmService _willVmService;
+        private readonly IAppLogger<EditModel> _logger;
 
         private readonly string _errorNotFound;
+        private readonly string _errorDefaultMessage;
 
-        public Step1Model(IWillsService willService, IAppLogger<EditModel> appLogger)
+        public Step1Model(IWillVmService willVmService, IAppLogger<EditModel> appLogger)
         {
-            _willService = willService;
-            _appLogger = appLogger;
+            _willVmService = willVmService;
+            _logger = appLogger;
 
             _errorNotFound = "Your will could not be found.";
+            _errorDefaultMessage = "It appears something went wrong. Please try again later. Should you still have the same issue, please get in touch with support.";
         }
 
         [BindProperty]
@@ -31,21 +32,19 @@ namespace Qwill.Pages
 
         public void OnGet(Guid id)
         {
-            if (id.IsGuid())
+            try
             {
-                // Edit
-                var will = _willService.GetWill(id);
-
-                if (will != null)
-                {
-                    WillInfo.Id = will.Id;
-                    WillInfo.FullName = will.FullName;
-                }
-                else
-                {
-                    ErrorMessage = _errorNotFound;
-                    _appLogger.LogWarning($"Edit - Will could not be found : {id}");
-                }
+                WillInfo = _willVmService.Get(id);
+            }
+            catch (ArgumentNullException e)
+            {
+                _logger.LogWarning("Step1 OnGet exception", e.Message);
+                ErrorMessage = _errorNotFound;
+            }
+            catch (Exception e)
+            {
+                _logger.LogWarning("Step1 OnGet exception", e.Message);
+                ErrorMessage = _errorDefaultMessage;
             }
         }
 
@@ -56,16 +55,14 @@ namespace Qwill.Pages
                 return Page();
             }
 
-            var will = new Will()
-            {
-                FullName = WillInfo.FullName,
-                Email = WillInfo.Email,
-                UpdatedUtc = DateTime.UtcNow
-            };
+            var result = _willVmService.Post(WillInfo);
 
-            _willService.AddOrUpdate(will);
-
-            return RedirectToPage("/Step2/" + WillInfo.Id);
+            //Success
+            if (result.Success) return RedirectToPage("/Step2/" + WillInfo.Id);
+            //Error
+            ErrorMessage = _errorDefaultMessage;
+            _logger.LogWarning("Step1 OnPost exception", result.ErrorMessage);
+            return Page();
         }
     }
 }

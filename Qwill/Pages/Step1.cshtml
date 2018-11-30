@@ -10,7 +10,7 @@
 <div class="container">
     <div class="row">
 
-        <div class="col-md-6 p-3">
+        <div class="col-6 offset-3">
             <div>
                 <partial name="_ErrorMessages" for="ErrorMessage" />
 
@@ -23,13 +23,13 @@
                         <span asp-validation-for="WillInfo.FullName" class="text-danger"></span>
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-5">
                         <label asp-for="WillInfo.Email"></label>
                         <input asp-for="WillInfo.Email" class="form-control" placeholder="Name *" />
                         <span asp-validation-for="WillInfo.Email" class="text-danger"></span>
                     </div>
 
-                    <button class="btn btn-primary btn-block" type="submit">Send</button>
+                    <button class="btn btn-primary btn-block" type="submit">Next</button>
                 </form>
 
             </div>

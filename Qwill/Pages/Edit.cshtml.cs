@@ -10,14 +10,14 @@ namespace Qwill.Pages
     public class EditModel : PageModel
     {
         private readonly IWillsService _willService;
-        private readonly IAppLogger<EditModel> _appLogger;
+        private readonly IAppLogger<EditModel> _logger;
 
         private readonly string _errorNotFound;
 
         public EditModel(IWillsService willService, IAppLogger<EditModel> appLogger)
         {
             _willService = willService;
-            _appLogger = appLogger;
+            _logger = appLogger;
 
             _errorNotFound = "Your will could not be found.";
         }
@@ -33,7 +33,7 @@ namespace Qwill.Pages
             if (id == null)
             {
                 ErrorMessage = _errorNotFound;
-                _appLogger.LogWarning($"Edit - Will could not be found : {id}");
+                _logger.LogWarning($"Edit - Will could not be found : {id}");
                 RedirectToPage("Edit");
             }
 
