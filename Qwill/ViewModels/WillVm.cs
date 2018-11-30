@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ApplicationCore.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -9,6 +10,8 @@ namespace Qwill.ViewModels
     public class WillVm
     {
         public Guid Id { get; set; }
+
+        public WillStatus WillStatus { get; set; }
 
         [Display(Name = "Full Name")]
         [Required]

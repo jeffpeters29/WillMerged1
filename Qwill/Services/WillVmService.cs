@@ -1,5 +1,6 @@
 ﻿using ApplicationCore.Entities;
 using ApplicationCore.Entities.Common;
+using ApplicationCore.Enums;
 using ApplicationCore.Helpers;
 using ApplicationCore.Interfaces;
 using Qwill.Interfaces;
@@ -34,6 +35,7 @@ namespace Qwill.Services
                     throw new ArgumentNullException(nameof(id));
 
                 willVm.Id = will.Id;
+                willVm.WillStatus = will.WillStatus;
                 willVm.FullName = will.FullName;
                 willVm.Email = will.Email;
             }
@@ -48,6 +50,7 @@ namespace Qwill.Services
             {
                 var will = new Will()
                 {
+                    WillStatus = willVm.WillStatus,
                     FullName = willVm.FullName,
                     Email = willVm.Email,
                     UpdatedUtc = DateTime.UtcNow

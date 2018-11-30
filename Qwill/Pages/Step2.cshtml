@@ -18,20 +18,46 @@
                     <input type="hidden" asp-for="WillInfo.Id" />
 
                     <div class="mb-3">
-                        <h3 id="childrenMessage"></h3>
+                        <h3>Do you have any children under 18?</h3>
                     </div>
 
                     <div class="mb-5">
-                        <button>-</button>
-                        <h3 id="childrenNumber"></h3>
-                        <button>+</button>
+                        <a class="btn btn-primary btn-block" data-toggle="modal" data-target="#childModal">Add Child</a>
                     </div>
-
+               
                     <button class="btn btn-primary btn-block" type="submit">Next</button>
                 </form>
 
             </div>
         </div>
 
+    </div>
+</div>
+
+<!--Child Modal-->
+<div id="childModal" class="modal fade responsiveModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                    @*<input type="hidden" asp-for="ChildInfo.Id" />
+
+                    <div class="mb-3">
+                        <label asp-for="ChildInfo.FirstName"></label>
+                        <input asp-for="ChildInfo.FirstName" class="form-control" placeholder="Name *" />
+                        <span asp-validation-for="ChildInfo.FirstName" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-5">
+                        <label asp-for="ChildInfo.Over18"></label>
+                        <input asp-for="ChildInfo.Email" class="form-control" placeholder="Name *" />
+                        <span asp-validation-for="ChildInfo.Email" class="text-danger"></span>
+                    </div>*@
+
+                    <button class="btn btn-primary btn-block" type="submit">Save</button>
+            </div>
+        </div>
     </div>
 </div>
