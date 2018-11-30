@@ -1,0 +1,40 @@
+﻿@page
+@model Qwill.Pages.Step1Model
+@{
+    ViewData["Title"] = "Step1";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h2>Step1</h2>
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-6 p-3">
+            <div>
+                <partial name="_ErrorMessages" for="ErrorMessage" />
+
+                <form method="post" asp-page-handler="Step1Form">
+                    <input type="hidden" asp-for="WillInfo.Id" />
+
+                    <div class="mb-3">
+                        <label asp-for="WillInfo.FullName"></label>
+                        <input asp-for="WillInfo.FullName" class="form-control" placeholder="Name *" />
+                        <span asp-validation-for="WillInfo.FullName" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="WillInfo.Email"></label>
+                        <input asp-for="WillInfo.Email" class="form-control" placeholder="Name *" />
+                        <span asp-validation-for="WillInfo.Email" class="text-danger"></span>
+                    </div>
+
+                    <button class="btn btn-primary btn-block" type="submit">Send</button>
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
