@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using ApplicationCore.Entities;
+using ApplicationCore.Helpers;
 using ApplicationCore.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Qwill.Interfaces;
 using Qwill.ViewModels;
+using System;
+using System.Linq;
 
 namespace Qwill.Pages
 {
@@ -41,12 +41,12 @@ namespace Qwill.Pages
             }
             catch (ArgumentNullException e)
             {
-                _logger.LogWarning("Step1 OnGet exception", e.Message);
+                _logger.LogWarning("Step2 OnGet exception", e.Message);
                 ErrorMessage = _errorNotFound;
             }
             catch (Exception e)
             {
-                _logger.LogWarning("Step1 OnGet exception", e.Message);
+                _logger.LogWarning("Step2 OnGet exception", e.Message);
                 ErrorMessage = _errorDefaultMessage;
             }
         }
@@ -58,14 +58,29 @@ namespace Qwill.Pages
                 return Page();
             }
 
-            var result = _willVmService.Post(WillInfo);
+            var willId = _willVmService.Post(WillInfo);
 
             //Success
-            if (result.Success) return RedirectToPage("/Step3/" + WillInfo.Id);
+            if (willId != null) return RedirectToPage("/Step3/" + willId.Value);
+
             //Error
-            ErrorMessage = _errorDefaultMessage;
-            _logger.LogWarning("Step2 OnPost exception", result.ErrorMessage);
+            _logger.LogWarning("Step2 OnPost exception", _errorDefaultMessage);
             return Page();
+        }
+
+        public IActionResult OnPostSaveChildDetails([FromBody]ChildVm childData)
+        {
+            WillInfo = _willVmService.Get(childData.WillId);
+
+            if (childData.ChildId.Value.IsGuid())
+            {
+                var child = WillInfo.Children.FirstOrDefault(c => c.Id == childData.ChildId);
+                WillInfo.Children.Remove(child);
+            }
+
+            WillInfo.Children.Add(new Child() { FirstName = childData.ChildName, Over18 = childData.Over18 });
+
+            return new JsonResult("true");
         }
     }
 }

@@ -5,11 +5,13 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
+<!-- todo: This should be in JSON format -->
+<input type="hidden" name="data" asp-for="WillInfo.Children" />
+
 <h2>Step2</h2>
 
 <div class="container">
     <div class="row">
-
         <div class="col-6 offset-3">
             <div>
                 <partial name="_ErrorMessages" for="ErrorMessage" />
@@ -21,20 +23,22 @@
                         <h3>Do you have any children under 18?</h3>
                     </div>
 
-                    <div class="mb-5">
+                    <div class="mb-3">
                         <a class="btn btn-primary btn-block" data-toggle="modal" data-target="#childModal">Add Child</a>
                     </div>
-               
+
+                    <div childListTarget class="mb-5">
+                    </div>
+
                     <button class="btn btn-primary btn-block" type="submit">Next</button>
                 </form>
-
             </div>
         </div>
-
     </div>
 </div>
 
-<!--Child Modal-->
+
+<!--BOTH Child Modal-->
 <div id="childModal" class="modal fade responsiveModal" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -42,22 +46,90 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                    @*<input type="hidden" asp-for="ChildInfo.Id" />
 
-                    <div class="mb-3">
-                        <label asp-for="ChildInfo.FirstName"></label>
-                        <input asp-for="ChildInfo.FirstName" class="form-control" placeholder="Name *" />
-                        <span asp-validation-for="ChildInfo.FirstName" class="text-danger"></span>
-                    </div>
+                @*<input type="hidden" id="childId" value="4896119a-97fc-4d3d-7572-08d659f9ab37"/>*@
 
-                    <div class="mb-5">
-                        <label asp-for="ChildInfo.Over18"></label>
-                        <input asp-for="ChildInfo.Email" class="form-control" placeholder="Name *" />
-                        <span asp-validation-for="ChildInfo.Email" class="text-danger"></span>
-                    </div>*@
+                <div class="mb-3">
+                    <label>First Name</label>
+                    <input FirstName class="form-control" placeholder="Name *" />
+                    <span FirstNameValidation class="text-danger"></span>
+                </div>
 
-                    <button class="btn btn-primary btn-block" type="submit">Save</button>
+                <div class="mb-5">
+                    <label>
+                        Over 18?
+                        <input Over18 type="checkbox" />
+                    </label>
+                    <span Over18Validation class="text-danger"></span>
+                </div>
+
+                <button save-child-button class="btn btn-primary btn-block" type="submit">Save</button>
             </div>
         </div>
     </div>
 </div>
+
+<!--ADD Child Modal -->
+@*<div id="childModalAdd" class="modal fade responsiveModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+
+                <div class="mb-3">
+                    <label>First Name</label>
+                    <input FirstName class="form-control" placeholder="Name *" />
+                    <span FirstNameValidation class="text-danger"></span>
+                </div>
+
+                <div class="mb-5">
+                    <label>
+                        Over 18?
+                        <input Over18 type="checkbox" />
+                    </label>
+                    <span Over18Validation class="text-danger"></span>
+                </div>
+
+                <button save-child-button class="btn btn-primary btn-block" type="submit">Save</button>
+            </div>
+        </div>
+    </div>
+</div>*@
+
+<!--EDIT Child Modal-->
+@*<div id="childModalEdit" class="modal fade responsiveModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+
+                <input type="hidden" id="childId" />
+
+                <div class="mb-3">
+                    <label>First Name</label>
+                    <input FirstName class="form-control" placeholder="Name *" />
+                    <span FirstNameValidation class="text-danger"></span>
+                </div>
+
+                <div class="mb-5">
+                    <label>
+                        Over 18?
+                        <input Over18 type="checkbox" />
+                    </label>
+                    <span Over18Validation class="text-danger"></span>
+                </div>
+
+                <button save-child-button class="btn btn-primary btn-block" type="submit">Save</button>
+            </div>
+        </div>
+    </div>
+</div>*@
+
+
+@section Scripts {
+    <script src="~/js/step2.js"></script>
+}

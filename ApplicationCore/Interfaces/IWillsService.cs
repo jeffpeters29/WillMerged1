@@ -9,7 +9,7 @@ namespace ApplicationCore.Interfaces
 {
     public interface IWillsService
     {
-        Result AddOrUpdate(Will will);
+        Guid? AddOrUpdate(Will will);
         Will GetWill(Guid id);
         IEnumerable<Will> GetWills();
     }

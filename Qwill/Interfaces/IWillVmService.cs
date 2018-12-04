@@ -8,6 +8,6 @@ namespace Qwill.Interfaces
     public interface IWillVmService
     {
         WillVm Get(Guid id);
-        Result Post(WillVm willVm);
+        Guid? Post(WillVm willVm);
     }
 }

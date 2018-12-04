@@ -6,6 +6,7 @@ using ApplicationCore.Interfaces;
 using Qwill.Interfaces;
 using Qwill.ViewModels;
 using System;
+using System.Collections.Generic;
 
 namespace Qwill.Services
 {
@@ -13,8 +14,6 @@ namespace Qwill.Services
     {
         private readonly IWillsService _willService;
         private readonly IAppLogger<WillVmService> _logger;
-
-       
 
         public WillVmService(IWillsService willService, IAppLogger<WillVmService> appLogger)
         {
@@ -24,7 +23,10 @@ namespace Qwill.Services
 
         public WillVm Get(Guid id)
         {
-            var willVm = new WillVm();
+            var willVm = new WillVm()
+            {
+                Children = new List<Child>()
+            };
 
             if (id.IsGuid())
             {
@@ -43,8 +45,7 @@ namespace Qwill.Services
             return willVm;
         }
 
-
-        public Result Post(WillVm willVm)
+        public Guid? Post(WillVm willVm)
         {
             try
             {
@@ -53,6 +54,7 @@ namespace Qwill.Services
                     WillStatus = willVm.WillStatus,
                     FullName = willVm.FullName,
                     Email = willVm.Email,
+                    Children = willVm.Children,
                     UpdatedUtc = DateTime.UtcNow
                 };
 
@@ -61,11 +63,14 @@ namespace Qwill.Services
             catch (Exception e)
             {
                 _logger.LogWarning("WillVmService Post exception", e.Message);
-                return new Result
-                {
-                    Success = false,
-                    ErrorMessage = e.Message
-                };
+
+                return null;
+
+                //return new Result
+                //{
+                //    Success = false,
+                //    ErrorMessage = e.Message
+                //};
             }
         }
     }

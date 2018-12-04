@@ -1,4 +1,5 @@
-﻿using ApplicationCore.Enums;
+﻿using ApplicationCore.Entities;
+using ApplicationCore.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -21,5 +22,7 @@ namespace Qwill.ViewModels
         [Required(ErrorMessage = "An email address is required")]
         [EmailAddress(ErrorMessage = "Invalid e-mail address")]
         public string Email { get; set; }
+
+        public List<Child> Children { get; set; }
     }
 }

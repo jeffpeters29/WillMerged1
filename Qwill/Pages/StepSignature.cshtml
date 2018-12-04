@@ -1,0 +1,25 @@
+﻿@page
+@model Qwill.Pages.StepSignatureModel
+@{
+    ViewData["Title"] = "StepSignature";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h2>Step Signature</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-6 offset-3">
+            <div>
+                <canvas id="testatorSketch" class="canvas"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section scripts
+{
+    <script src="~/js/sketch.js"></script>
+}

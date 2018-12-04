@@ -55,13 +55,13 @@ namespace Qwill.Pages
                 return Page();
             }
 
-            var result = _willVmService.Post(WillInfo);
+            var willId = _willVmService.Post(WillInfo);
 
             //Success
-            if (result.Success) return RedirectToPage("/Step2/" + WillInfo.Id);
+            if (willId != null) return RedirectToPage("/Step2", new { id = willId.Value });
+
             //Error
-            ErrorMessage = _errorDefaultMessage;
-            _logger.LogWarning("Step1 OnPost exception", result.ErrorMessage);
+            _logger.LogWarning("Step1 OnPost exception", _errorDefaultMessage);
             return Page();
         }
     }

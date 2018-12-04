@@ -1,63 +1,68 @@
-﻿using System;
-using System.Collections.Generic;
-using ApplicationCore.Entities;
-using ApplicationCore.Entities.Common;
+﻿using ApplicationCore.Entities;
 using ApplicationCore.Helpers;
 using ApplicationCore.Interfaces;
 using ApplicationCore.Specifications;
+using System;
+using System.Collections.Generic;
 
 namespace ApplicationCore.Services
 {
     public class WillsService : IWillsService
     {
-        private readonly IRepository<Will> _willRepository;
+        private readonly IRepository<Will> _repository;
         private readonly IAppLogger<WillsService> _logger;
 
-        public WillsService(IRepository<Will> willRepository, IAppLogger<WillsService> appLogger)
+        public WillsService(IRepository<Will> willRepository, IAppLogger<WillsService> logger)
         {
-            _willRepository = willRepository;
-            _logger = appLogger;
+            _repository = willRepository;
+            _logger = logger;
         }
 
-        public Result AddOrUpdate(Will will)
+        public Guid? AddOrUpdate(Will will)
         {
             try
             {
                 if (will.Id.IsGuidEmpty())
                 {
                     //Add
-                    var result = _willRepository.Add(will);
-                    return new Result
-                    {
-                        Success = result != null 
-                    };
+                    var resultWill = _repository.Add(will);
+
+                    return resultWill?.Id;
+
+                    //return new Result
+                    //{
+                    //    Success = result != null 
+                    //};
                 }
                 else
                 {
                     //Update
-                    _willRepository.Update(will);
+                    _repository.Update(will);
+                    return will.Id;
                 }
 
-                return new Result
-                {
-                    Success = true
-                };
+                //return new Result
+                //{
+                //    Success = true
+                //};
             }
             catch (Exception ex)
             {
                 _logger.LogWarning($"WillsService : Error saving {will.Id}", ex.Message);
-                return new Result
-                {
-                    Success = false,
-                    ErrorMessage = ex.Message
-                };
+                //return new Result
+                //{
+                //    Success = false,
+                //    ErrorMessage = ex.Message
+                //};
+
+                return null;
             }
         }
 
         public Will GetWill(Guid id)
         {
-            var willSpec = new WillSpecification(id);
-            return _willRepository.GetSingleBySpec(willSpec);
+            var spec = new WillSpecification(id);
+            return _repository.GetSingleBySpec(spec);
         }
 
         public IEnumerable<Will> GetWills()
