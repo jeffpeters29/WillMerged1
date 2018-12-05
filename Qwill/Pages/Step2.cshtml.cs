@@ -38,6 +38,11 @@ namespace Qwill.Pages
             try
             {
                 WillInfo = _willVmService.Get(id);
+
+                //Sample data
+                WillInfo.Children.Add(new Child() { Id = Guid.NewGuid(), FirstName = "Adam", Over18 = false });
+                WillInfo.Children.Add(new Child() { Id = Guid.NewGuid(), FirstName = "Brian", Over18 = true });
+                WillInfo.Children.Add(new Child() { Id = Guid.NewGuid(), FirstName = "Chris", Over18 = true });
             }
             catch (ArgumentNullException e)
             {

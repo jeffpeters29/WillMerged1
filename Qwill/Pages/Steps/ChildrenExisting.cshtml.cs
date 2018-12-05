@@ -5,18 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Qwill.Pages
+namespace Qwill.Pages.Steps
 {
-    public class IndexModel : PageModel
+    public class ChildrenExistingModel : PageModel
     {
         public void OnGet()
         {
 
-        }
-
-        public IActionResult OnPostNewWill()
-        {
-            return RedirectToPage("/Steps/Prerequisites/WhereLive");
         }
     }
 }

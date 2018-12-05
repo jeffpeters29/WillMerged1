@@ -1,0 +1,22 @@
+﻿@page
+@model Qwill.Pages.Steps.Prerequisites.WhereLiveModel
+@{
+    ViewData["Title"] = "WhereLive";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-6 offset-3">
+            <h5>Where do you live?</h5>
+            <div class="mt-3">
+                <form method="post">
+                    <button class="btn btn-primary btn-block" asp-page-handler="Acceptable">England or Wales</button>
+                    <button class="btn btn-primary btn-block" asp-page-handler="Elsewhere">Elsewhere</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>

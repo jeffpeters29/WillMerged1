@@ -1,4 +1,5 @@
 ﻿@page
+@using Newtonsoft.Json
 @model Qwill.Pages.Step2Model
 @{
     ViewData["Title"] = "Step2";
@@ -38,68 +39,8 @@
 </div>
 
 
-<!--BOTH Child Modal-->
+<!-- Child Modal -->
 <div id="childModal" class="modal fade responsiveModal" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-
-                @*<input type="hidden" id="childId" value="4896119a-97fc-4d3d-7572-08d659f9ab37"/>*@
-
-                <div class="mb-3">
-                    <label>First Name</label>
-                    <input FirstName class="form-control" placeholder="Name *" />
-                    <span FirstNameValidation class="text-danger"></span>
-                </div>
-
-                <div class="mb-5">
-                    <label>
-                        Over 18?
-                        <input Over18 type="checkbox" />
-                    </label>
-                    <span Over18Validation class="text-danger"></span>
-                </div>
-
-                <button save-child-button class="btn btn-primary btn-block" type="submit">Save</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!--ADD Child Modal -->
-@*<div id="childModalAdd" class="modal fade responsiveModal" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-
-                <div class="mb-3">
-                    <label>First Name</label>
-                    <input FirstName class="form-control" placeholder="Name *" />
-                    <span FirstNameValidation class="text-danger"></span>
-                </div>
-
-                <div class="mb-5">
-                    <label>
-                        Over 18?
-                        <input Over18 type="checkbox" />
-                    </label>
-                    <span Over18Validation class="text-danger"></span>
-                </div>
-
-                <button save-child-button class="btn btn-primary btn-block" type="submit">Save</button>
-            </div>
-        </div>
-    </div>
-</div>*@
-
-<!--EDIT Child Modal-->
-@*<div id="childModalEdit" class="modal fade responsiveModal" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -127,9 +68,18 @@
             </div>
         </div>
     </div>
-</div>*@
+</div>
 
 
 @section Scripts {
+
+    <script type="text/javascript">
+        var json = @Html.Raw(JsonConvert.SerializeObject(Model.WillInfo.Children, new JsonSerializerSettings
+                   {
+                        ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                   }));
+    </script>
+
+
     <script src="~/js/step2.js"></script>
 }
