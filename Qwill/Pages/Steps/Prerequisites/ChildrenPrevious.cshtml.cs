@@ -31,7 +31,7 @@ namespace Qwill.Pages.Steps.Prerequisites
 
         public IActionResult OnPostNo()
         {
-            return RedirectToPage("/Steps/ChildrenExisting");
+            return RedirectToPage("/Steps/Register");
         }
 
         public IActionResult OnPostGoBack()

@@ -30,7 +30,6 @@ namespace Qwill.Services
 
             if (id.IsGuid())
             {
-                // Edit
                 var will = _willService.GetWill(id);
 
                 if (will == null)
@@ -65,12 +64,29 @@ namespace Qwill.Services
                 _logger.LogWarning("WillVmService Post exception", e.Message);
 
                 return null;
+            }
+        }
 
-                //return new Result
-                //{
-                //    Success = false,
-                //    ErrorMessage = e.Message
-                //};
+        public Guid? Create(WillVm willVm)
+        {
+            try
+            {
+                var will = new Will()
+                {
+                    WillStatus = willVm.WillStatus,
+                    FullName = willVm.FullName,
+                    Email = willVm.Email,
+                    Children = willVm.Children,
+                    UpdatedUtc = DateTime.UtcNow
+                };
+
+                return _willService.AddOrUpdate(will);
+            }
+            catch (Exception e)
+            {
+                _logger.LogWarning("WillVmService Post exception", e.Message);
+
+                return null;
             }
         }
     }

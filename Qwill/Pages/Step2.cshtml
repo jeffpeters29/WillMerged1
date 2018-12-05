@@ -7,11 +7,11 @@
 }
 
 <!-- todo: This should be in JSON format -->
-<input type="hidden" name="data" asp-for="WillInfo.Children" />
+@*<input type="hidden" name="data" asp-for="WillInfo.Children" />*@
 
 <h2>Step2</h2>
 
-<div class="container">
+@*<div class="container">
     <div class="row">
         <div class="col-6 offset-3">
             <div>
@@ -36,11 +36,11 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
 
 
 <!-- Child Modal -->
-<div id="childModal" class="modal fade responsiveModal" role="dialog">
+@*<div id="childModal" class="modal fade responsiveModal" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -68,12 +68,12 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
 
 
 @section Scripts {
 
-    <script type="text/javascript">
+    @*<script type="text/javascript">
         var json = @Html.Raw(JsonConvert.SerializeObject(Model.WillInfo.Children, new JsonSerializerSettings
                    {
                         ReferenceLoopHandling = ReferenceLoopHandling.Ignore
@@ -81,5 +81,5 @@
     </script>
 
 
-    <script src="~/js/step2.js"></script>
+    <script src="~/js/step2.js"></script>*@
 }
