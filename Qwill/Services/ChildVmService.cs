@@ -33,8 +33,8 @@ namespace Qwill.Services
                     throw new ArgumentNullException(nameof(id));
 
                 //childVm.ChildId = child.Id;
-                childVm.ChildName = child.FirstName;
-                childVm.Over18 = child.Over18;
+                childVm.FullName = child.FullName;
+                childVm.DateOfBirth = child.DateOfBirth;
             }
 
             return childVm;
@@ -52,7 +52,7 @@ namespace Qwill.Services
                 var child = new Child()
                 {
                     Id = childVm.ChildId.Value,
-                    FirstName = childVm.ChildName,
+                    FullName = childVm.FullName,
                     UpdatedUtc = DateTime.UtcNow
                 };
 

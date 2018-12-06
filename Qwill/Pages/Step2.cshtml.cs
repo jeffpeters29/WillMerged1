@@ -12,11 +12,11 @@ namespace Qwill.Pages
 {
     public class Step2Model : PageModel
     {
-        private readonly IWillVmService _willVmService;
-        private readonly IAppLogger<EditModel> _logger;
+        //private readonly IWillVmService _willVmService;
+        //private readonly IAppLogger<Step2Model> _logger;
 
-        private readonly string _errorNotFound;
-        private readonly string _errorDefaultMessage;
+        //private readonly string _errorNotFound;
+        //private readonly string _errorDefaultMessage;
 
         //public Step2Model(IWillVmService willVmService, IAppLogger<EditModel> appLogger)
         //{

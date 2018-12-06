@@ -10,5 +10,7 @@ namespace ApplicationCore.Entities
 
         public Guid RelationshipId { get; set; }
         public Relationship Relationship { get; set; }
+
+        public Will Will { get; set; }
     }
 }
