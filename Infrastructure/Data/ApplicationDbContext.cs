@@ -16,12 +16,20 @@ namespace Infrastructure.Data
 
         public DbSet<Will> Wills { get; set; }
         public DbSet<Customer> Customers { get; set; }
-        public DbSet<Child> Children { get; set; }
         public DbSet<Partner> Partners { get; set; }
-
+        public DbSet<Child> Children { get; set; }
+        public DbSet<LegalGuardian> LegalGuardians { get; set; }
+        public DbSet<Executor> Executors { get; set; }
+        public DbSet<Trustee> Trustees { get; set; }
+        public DbSet<CashRecipient> CashRecipients { get; set; }
+        public DbSet<GiftRecipient> GiftRecipients { get; set; }
+        public DbSet<ResidueRecipient> ResidueRecipients { get; set; }
+        public DbSet<NonProvision> NonProvisions { get; set; }
+        public DbSet<Witness> Witnesses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<Address>(ConfigureAddress);
             builder.Entity<Address>(ConfigureAddress);
             builder.Entity<FuneralType>(ConfigureFuneralType);
             builder.Entity<Will>(ConfigureWill);
@@ -34,6 +42,8 @@ namespace Infrastructure.Data
             builder.Entity<CashRecipient>(ConfigureCashRecipient);
             builder.Entity<GiftRecipient>(ConfigureGiftRecipient);
             builder.Entity<ResidueRecipient>(ConfigureResidueRecipient);
+            builder.Entity<NonProvision>(ConfigureNonProvision);
+            builder.Entity<Witness>(ConfigureWitness);
 
         }
 
@@ -48,6 +58,13 @@ namespace Infrastructure.Data
             builder.Property(a => a.Village).IsRequired(true).HasMaxLength(100);
 
             builder.Property(a => a.City).IsRequired(true).HasMaxLength(100);
+        }
+
+        private void ConfigureRelationship(EntityTypeBuilder<Relationship> builder)
+        {
+            builder.HasKey(r => r.Id);
+
+            builder.Property(r => r.Description).IsRequired(true).HasMaxLength(50);
         }
 
         private void ConfigureFuneralType(EntityTypeBuilder<FuneralType> builder)
@@ -235,6 +252,20 @@ namespace Infrastructure.Data
             builder.HasOne(r => r.Relationship)
                    .WithOne(a => a.ResidueRecipient)
                    .HasForeignKey<ResidueRecipient>(r => r.RelationshipId)
+                   .IsRequired(true);
+        }
+
+        private void ConfigureNonProvision(EntityTypeBuilder<NonProvision> builder)
+        {
+            builder.HasKey(n => n.Id);
+
+            builder.Property(n => n.FullName).IsRequired(true).HasMaxLength(100);
+
+            builder.Property(n => n.ReasonWhy).IsRequired(false).HasMaxLength(500);
+
+            builder.HasOne(n => n.Relationship)
+                   .WithOne(a => a.NonProvision)
+                   .HasForeignKey<NonProvision>(n => n.RelationshipId)
                    .IsRequired(true);
         }
 

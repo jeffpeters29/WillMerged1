@@ -4,8 +4,10 @@ using System.Text;
 
 namespace ApplicationCore.Entities
 {
-    public class Relationship
+    public class Relationship 
     {
+        public Guid Id { get; set; }
+
         public string Description { get; set; }
 
         //-----------

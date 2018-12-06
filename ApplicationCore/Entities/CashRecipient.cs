@@ -10,7 +10,7 @@ namespace ApplicationCore.Entities
 
         //-------------
 
-        public Guid? AddressId { get; set; }
+        public Guid AddressId { get; set; }
         public Address Address { get; set; }
 
 

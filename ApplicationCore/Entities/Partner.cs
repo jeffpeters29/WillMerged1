@@ -8,7 +8,7 @@ namespace ApplicationCore.Entities
     {
         public DateTime DateOfBirth { get; set; }
 
-        public Guid? AddressId { get; set; }
+        public Guid AddressId { get; set; }
         public Address Address { get; set; }
 
         public Will Will { get; set; }
