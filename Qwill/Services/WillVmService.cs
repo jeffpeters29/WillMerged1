@@ -71,11 +71,12 @@ namespace Qwill.Services
         {
             try
             {
+                //var customer = new Customer() { FullName = willVm.FullName };
+
                 var will = new Will()
                 {
                     WillStatus = willVm.WillStatus,
-                    FullName = willVm.FullName,
-                    Email = willVm.Email,
+                    Customer = willVm.Customer,
                     Children = willVm.Children,
                     UpdatedUtc = DateTime.UtcNow
                 };

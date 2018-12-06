@@ -7,6 +7,6 @@ namespace ApplicationCore.Entities
 {
     public class Person : EntityBaseWithGuid
     {
-        public string FirstName { get; set; }
+        public string FullName { get; set; }
     }
 }
