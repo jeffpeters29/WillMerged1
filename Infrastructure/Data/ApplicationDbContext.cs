@@ -33,6 +33,7 @@ namespace Infrastructure.Data
             builder.Entity<Address>(ConfigureAddress);
             builder.Entity<FuneralType>(ConfigureFuneralType);
             builder.Entity<MaritalStatus>(ConfigureMaritalStatus);
+            builder.Entity<Relationship>(ConfigureRelationship);
             builder.Entity<Will>(ConfigureWill);
             builder.Entity<Customer>(ConfigureCustomer);
             builder.Entity<Partner>(ConfigurePartner);
@@ -89,8 +90,6 @@ namespace Infrastructure.Data
 
             builder.Property(w => w.WillStatus).IsRequired(true);
 
-          
-
             builder.HasOne(w => w.Customer).WithOne(c => c.Will).IsRequired();
             builder.HasOne(w => w.Partner).WithOne(p => p.Will);
             builder.HasMany(w => w.Children).WithOne(c => c.Will);
@@ -133,9 +132,9 @@ namespace Infrastructure.Data
             builder.Property(p => p.DateOfBirth).IsRequired(true);
 
             builder.HasOne(p => p.Address)
-                  .WithOne(a => a.Partner)
-                  .HasForeignKey<Partner>(c => c.AddressId)
-                  .IsRequired(true);
+                   .WithOne(a => a.Partner)
+                   .HasForeignKey<Partner>(p => p.AddressId)
+                   .IsRequired(true);
         }
 
         private void ConfigureChild(EntityTypeBuilder<Child> builder)
@@ -152,6 +151,11 @@ namespace Infrastructure.Data
             builder.HasOne(c => c.Address)
                    .WithOne(a => a.Child)
                    .HasForeignKey<Child>(c => c.AddressId)
+                   .IsRequired(false);
+
+            builder.HasOne(c => c.Relationship)
+                   .WithOne(r => r.Child)
+                   .HasForeignKey<Child>(c => c.RelationshipId)
                    .IsRequired(true);
 
             builder.HasOne(c => c.LegalGuardian)
@@ -173,10 +177,9 @@ namespace Infrastructure.Data
                    .IsRequired(true);
 
             builder.HasOne(l => l.Relationship)
-                   .WithOne(a => a.LegalGuardian)
+                   .WithOne(r => r.LegalGuardian)
                    .HasForeignKey<LegalGuardian>(l => l.RelationshipId)
                    .IsRequired(true);
-
         }
 
         private void ConfigureTrustee(EntityTypeBuilder<Trustee> builder)
@@ -193,7 +196,7 @@ namespace Infrastructure.Data
                   .IsRequired(true);
 
             builder.HasOne(t => t.Relationship)
-                   .WithOne(a => a.Trustee)
+                   .WithOne(r => r.Trustee)
                    .HasForeignKey<Trustee>(t => t.RelationshipId)
                    .IsRequired(true);
         }
@@ -205,7 +208,6 @@ namespace Infrastructure.Data
             builder.Property(e => e.FirstName).IsRequired(true).HasMaxLength(50);
             builder.Property(e => e.LastName).IsRequired(true).HasMaxLength(50);
 
-
             builder.Property(e => e.Email).IsRequired(true);
 
             builder.Property(e => e.IsAwareFinances).IsRequired(true);
@@ -216,7 +218,7 @@ namespace Infrastructure.Data
                    .IsRequired(true);
 
             builder.HasOne(e => e.Relationship)
-                   .WithOne(a => a.Executor)
+                   .WithOne(r => r.Executor)
                    .HasForeignKey<Executor>(e => e.RelationshipId)
                    .IsRequired(true);
         }
@@ -236,7 +238,7 @@ namespace Infrastructure.Data
                    .IsRequired(true);
 
             builder.HasOne(g => g.Relationship)
-                   .WithOne(a => a.GiftRecipient)
+                   .WithOne(r => r.GiftRecipient)
                    .HasForeignKey<GiftRecipient>(g => g.RelationshipId)
                    .IsRequired(true);
         }
@@ -256,7 +258,7 @@ namespace Infrastructure.Data
                   .IsRequired(true);
 
             builder.HasOne(c => c.Relationship)
-                   .WithOne(a => a.CashRecipient)
+                   .WithOne(r => r.CashRecipient)
                    .HasForeignKey<CashRecipient>(c => c.RelationshipId)
                    .IsRequired(true);
         }
@@ -278,7 +280,7 @@ namespace Infrastructure.Data
                    .IsRequired(true);
 
             builder.HasOne(r => r.Relationship)
-                   .WithOne(a => a.ResidueRecipient)
+                   .WithOne(x => x.ResidueRecipient)
                    .HasForeignKey<ResidueRecipient>(r => r.RelationshipId)
                    .IsRequired(true);
         }
@@ -293,7 +295,7 @@ namespace Infrastructure.Data
             builder.Property(n => n.ReasonWhy).IsRequired(false).HasMaxLength(500);
 
             builder.HasOne(n => n.Relationship)
-                   .WithOne(a => a.NonProvision)
+                   .WithOne(r => r.NonProvision)
                    .HasForeignKey<NonProvision>(n => n.RelationshipId)
                    .IsRequired(true);
         }
