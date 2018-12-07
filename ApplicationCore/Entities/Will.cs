@@ -33,7 +33,7 @@ namespace ApplicationCore.Entities
 
         public ICollection<LegalGuardian> LegalGuardians { get; set; }
 
-        public ICollection<Witness> Witnesses { get; set; }
+        public ICollection<Witness> Witnesses { get; set; } 
 
         //-------------
 

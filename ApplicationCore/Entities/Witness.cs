@@ -1,18 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using ApplicationCore.Entities.Common;
 
 namespace ApplicationCore.Entities
 {
-    public class Witness : Person
+    public class Witness : PersonWithAddress
     {
         public string Occupation { get; set; }
-
-        //-------------
-
-        public Guid AddressId { get; set; }
-        public Address Address { get; set; }
-
-        public Will Will { get; set; }
     }
 }

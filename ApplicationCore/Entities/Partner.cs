@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using ApplicationCore.Entities.Common;
+using System;
 
 namespace ApplicationCore.Entities
 {
-    public class Partner : Person
+    public class Partner : PersonWithAddress
     {
         public DateTime DateOfBirth { get; set; }
-
-        public Guid AddressId { get; set; }
-        public Address Address { get; set; }
-
-        public Will Will { get; set; }
     }
 }

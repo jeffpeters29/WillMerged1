@@ -14,18 +14,18 @@ namespace ApplicationCore.Entities
 
         public Child Child { get; set; }
 
-        public Executor Executor { get; set; }
+        public LegalGuardian LegalGuardian { get; set; }
 
         public Trustee Trustee { get; set; }
 
-        public CashRecipient CashRecipient { get; set; }
+        public Executor Executor { get; set; }
 
         public GiftRecipient GiftRecipient { get; set; }
+
+        public CashRecipient CashRecipient { get; set; }
 
         public ResidueRecipient ResidueRecipient { get; set; }
 
         public NonProvision NonProvision { get; set; }
-
-        public LegalGuardian LegalGuardian { get; set; }
     }
 }

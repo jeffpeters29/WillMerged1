@@ -37,7 +37,7 @@ namespace Qwill.Services
 
                 willVm.Id = will.Id;
                 willVm.WillStatus = will.WillStatus;
-                willVm.Customer.FullName = will.Customer.FullName;
+                willVm.Customer.FirstName = will.Customer.FirstName;
                 willVm.Customer.DateOfBirth = will.Customer.DateOfBirth;
             }
 

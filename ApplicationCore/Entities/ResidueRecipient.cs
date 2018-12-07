@@ -1,24 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using ApplicationCore.Entities.Common;
+using System;
 
 namespace ApplicationCore.Entities
 {
-    public class ResidueRecipient : Person
+    public class ResidueRecipient : PersonWithAddressRelationship
     {
         public int Level { get; set; }
 
         public decimal Percentage { get; set; }
-
-        //----------
-
-        public Guid AddressId { get; set; }
-        public Address Address { get; set; }
-
-        public Guid RelationshipId { get; set; }
-        public Relationship Relationship { get; set; }
-
-        public Will Will { get; set; }
-
     }
 }

@@ -1,22 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using ApplicationCore.Entities.Common;
+using System;
 
 namespace ApplicationCore.Entities
 {
-    public class CashRecipient : Person
+    public class CashRecipient : PersonWithAddressRelationship
     {
         public decimal Amount { get; set; }
-
-        //-------------
-
-        public Guid AddressId { get; set; }
-        public Address Address { get; set; }
-
-
-        public Guid RelationshipId { get; set; }
-        public Relationship Relationship { get; set; }
-
-        public Will Will { get; set; }
     }
 }

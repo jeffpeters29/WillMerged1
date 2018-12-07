@@ -18,21 +18,21 @@ namespace ApplicationCore.Entities
 
         public Customer Customer { get; set; }
 
+        public Partner Partner { get; set; }
+
         public Child Child { get; set; }
 
-        public Executor Executor { get; set; }
-
-        public Partner Partner { get; set; }
+        public LegalGuardian LegalGuardian { get; set; }
 
         public Trustee Trustee { get; set; }
 
-        public CashRecipient CashRecipient { get; set; }
+        public Executor Executor { get; set; }
 
         public GiftRecipient GiftRecipient { get; set; }
 
-        public ResidueRecipient ResidueRecipient { get; set; }
+        public CashRecipient CashRecipient { get; set; }
 
-        public LegalGuardian LegalGuardian { get; set; }
+        public ResidueRecipient ResidueRecipient { get; set; }
 
         public Witness Witness { get; set; }
     }

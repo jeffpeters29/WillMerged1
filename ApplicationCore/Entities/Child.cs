@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ApplicationCore.Entities.Common;
+using System;
 
 namespace ApplicationCore.Entities
 {
@@ -12,11 +13,12 @@ namespace ApplicationCore.Entities
         public Guid? AddressId { get; set; }
         public Address Address { get; set; }
 
+        public Guid RelationshipId { get; set; }
+        public Relationship Relationship { get; set; }
+
 
         public Guid? LegalGuardianId { get; set; }
         public LegalGuardian LegalGuardian { get; set; }
 
-
-        public Will Will { get; set; }
     }
 }
