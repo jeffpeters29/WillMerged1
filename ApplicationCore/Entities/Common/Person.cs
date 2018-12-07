@@ -1,4 +1,6 @@
-﻿namespace ApplicationCore.Entities.Common
+﻿using System;
+
+namespace ApplicationCore.Entities.Common
 {
     public class Person : EntityBaseWithGuid
     {

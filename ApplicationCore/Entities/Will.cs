@@ -13,8 +13,10 @@ namespace ApplicationCore.Entities
 
         //-------------
 
+        public Guid CustomerId { get; set; }
         public Customer Customer { get; set; }
 
+        public Guid? PartnerId { get; set; }
         public Partner Partner { get; set; }
 
         public ICollection<Child> Children { get; set; }

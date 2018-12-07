@@ -90,19 +90,30 @@ namespace Infrastructure.Data
 
             builder.Property(w => w.WillStatus).IsRequired(true);
 
-            builder.HasOne(w => w.Customer).WithOne(c => c.Will).IsRequired();
-            builder.HasOne(w => w.Partner).WithOne(p => p.Will);
+            builder.HasOne(w => w.Customer)
+                   .WithOne(c => c.Will)
+                   .HasForeignKey<Will>(w => w.CustomerId)
+                   .IsRequired(true);
+
+            builder.HasOne(w => w.Partner)
+                   .WithOne(p => p.Will)
+                   .HasForeignKey<Will>(w => w.PartnerId)
+                   .IsRequired(false);
+
             builder.HasMany(w => w.Children).WithOne(c => c.Will);
             builder.HasMany(w => w.LegalGuardians).WithOne(l => l.Will);
             builder.HasMany(w => w.Trustees).WithOne(t => t.Will);
-            builder.HasMany(w => w.Executors).WithOne(e => e.Will).IsRequired();
+            builder.HasMany(w => w.Executors).WithOne(e => e.Will);
             builder.HasMany(w => w.GiftRecipients).WithOne(g => g.Will);
             builder.HasMany(w => w.CashRecipients).WithOne(c => c.Will);
             builder.HasMany(w => w.ResidueRecipients).WithOne(r => r.Will);
             builder.HasMany(w => w.NonProvisions).WithOne(n => n.Will);
-            builder.HasMany(w => w.NonProvisions).WithOne(x => x.Will).IsRequired();
+            builder.HasMany(w => w.Witnesses).WithOne(x => x.Will);
 
-            builder.Property(w => w.FuneralType).IsRequired(false);
+            builder.HasOne(w => w.FuneralType)
+                   .WithMany(m => m.Wills)
+                   .IsRequired(true);
+
             builder.Property(w => w.FuneralWishes).IsRequired(false);
         }
 
@@ -114,7 +125,10 @@ namespace Infrastructure.Data
             builder.Property(c => c.LastName).IsRequired(true).HasMaxLength(50);
             builder.Property(c => c.DateOfBirth).IsRequired(true);
             builder.Property(c => c.Telephone).IsRequired(false);
-            builder.Property(c => c.MaritalStatus).IsRequired(true);
+
+            builder.HasOne(c => c.MaritalStatus)
+                   .WithMany(m => m.Customers)
+                   .IsRequired(true);
 
             builder.HasOne(c => c.Address)
                    .WithOne(a => a.Customer)
@@ -135,6 +149,10 @@ namespace Infrastructure.Data
                    .WithOne(a => a.Partner)
                    .HasForeignKey<Partner>(p => p.AddressId)
                    .IsRequired(true);
+
+            builder.HasOne(p => p.Will)
+                   .WithOne(w => w.Partner)
+                   .IsRequired(false);
         }
 
         private void ConfigureChild(EntityTypeBuilder<Child> builder)
@@ -230,7 +248,7 @@ namespace Infrastructure.Data
             builder.Property(g => g.FirstName).IsRequired(true).HasMaxLength(50);
             builder.Property(g => g.LastName).IsRequired(true).HasMaxLength(50);
 
-            builder.Property(g => g.Description).IsRequired().HasMaxLength(250);
+            builder.Property(g => g.Description).IsRequired(true).HasMaxLength(250);
 
             builder.HasOne(g => g.Address)
                    .WithOne(a => a.GiftRecipient)
@@ -250,7 +268,7 @@ namespace Infrastructure.Data
             builder.Property(c => c.FirstName).IsRequired(true).HasMaxLength(50);
             builder.Property(c => c.LastName).IsRequired(true).HasMaxLength(50);
 
-            builder.Property(c => c.Amount).IsRequired();
+            builder.Property(c => c.Amount).IsRequired(true);
 
             builder.HasOne(c => c.Address)
                   .WithOne(a => a.CashRecipient)
@@ -270,9 +288,8 @@ namespace Infrastructure.Data
             builder.Property(r => r.FirstName).IsRequired(true).HasMaxLength(50);
             builder.Property(r => r.LastName).IsRequired(true).HasMaxLength(50);
 
-            builder.Property(r => r.Level).IsRequired();
-
-            builder.Property(r => r.Percentage).IsRequired();
+            builder.Property(r => r.Level).IsRequired(true);
+            builder.Property(r => r.Percentage).IsRequired(true);
 
             builder.HasOne(r => r.Address)
                    .WithOne(a => a.ResidueRecipient)
@@ -307,7 +324,7 @@ namespace Infrastructure.Data
             builder.Property(w => w.FirstName).IsRequired(true).HasMaxLength(50);
             builder.Property(w => w.LastName).IsRequired(true).HasMaxLength(50);
 
-            builder.Property(w => w.Occupation).IsRequired();
+            builder.Property(w => w.Occupation).IsRequired(true);
 
             builder.HasOne(w => w.Address)
                   .WithOne(a => a.Witness)

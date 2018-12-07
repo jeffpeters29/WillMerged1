@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace ApplicationCore.Entities
 {
@@ -8,6 +9,6 @@ namespace ApplicationCore.Entities
 
         public string Description { get; set; }
 
-        public Customer Customer { get; set; }
+        public ICollection<Customer> Customers { get; set; }
     }
 }

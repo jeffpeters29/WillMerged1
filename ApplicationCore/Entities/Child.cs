@@ -16,7 +16,6 @@ namespace ApplicationCore.Entities
         public Guid RelationshipId { get; set; }
         public Relationship Relationship { get; set; }
 
-
         public Guid? LegalGuardianId { get; set; }
         public LegalGuardian LegalGuardian { get; set; }
 
