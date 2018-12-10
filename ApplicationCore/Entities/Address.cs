@@ -1,7 +1,4 @@
 ﻿using ApplicationCore.Entities.Common;
-using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ApplicationCore.Entities
 {
@@ -9,6 +6,34 @@ namespace ApplicationCore.Entities
     {
         public string Postcode { get; set; }
 
-        public Will Will { get; set; }
+        public string Number { get; set; }
+
+        public string Street { get; set; }
+
+        public string Village { get; set; }
+
+        public string City { get; set; }
+
+        //-------------
+
+        public Customer Customer { get; set; }
+
+        public Partner Partner { get; set; }
+
+        public Child Child { get; set; }
+
+        public LegalGuardian LegalGuardian { get; set; }
+
+        public Trustee Trustee { get; set; }
+
+        public Executor Executor { get; set; }
+
+        public GiftRecipient GiftRecipient { get; set; }
+
+        public CashRecipient CashRecipient { get; set; }
+
+        public ResidueRecipient ResidueRecipient { get; set; }
+
+        public Witness Witness { get; set; }
     }
 }

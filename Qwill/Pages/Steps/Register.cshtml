@@ -1,0 +1,48 @@
+﻿@page
+@model Qwill.Pages.Steps.RegisterModel
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-6 offset-3">
+            <h5>Sign up to continue</h5>
+
+            <div class="mt-3">
+                <form method="post">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="UserDetails.Email" class="col-md-2 control-label"></label>
+                        <div class="col-md-10">
+                            <input asp-for="UserDetails.Email" class="form-control" />
+                            <span asp-validation-for="UserDetails.Email" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="UserDetails.Password" class="col-md-2 control-label"></label>
+                        <div class="col-md-10">
+                            <input asp-for="UserDetails.Password" class="form-control" />
+                            <span asp-validation-for="UserDetails.Password" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="UserDetails.ConfirmPassword" class="col-md-2 control-label"></label>
+                        <div class="col-md-10">
+                            <input asp-for="UserDetails.ConfirmPassword" class="form-control" />
+                            <span asp-validation-for="UserDetails.ConfirmPassword" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary btn-block" asp-page-handler="CreateAccount">Create Account</button>
+                    <button class="btn btn-link" asp-page-handler="SignIn">Already have an account? Sign In</button>
+                    <button class="btn btn-link" asp-page-handler="GoBack">Go Back</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+

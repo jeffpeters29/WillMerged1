@@ -30,7 +30,6 @@ namespace Qwill.Services
 
             if (id.IsGuid())
             {
-                // Edit
                 var will = _willService.GetWill(id);
 
                 if (will == null)
@@ -38,8 +37,8 @@ namespace Qwill.Services
 
                 willVm.Id = will.Id;
                 willVm.WillStatus = will.WillStatus;
-                willVm.FullName = will.FullName;
-                willVm.Email = will.Email;
+                willVm.Customer.FirstName = will.Customer.FirstName;
+                willVm.Customer.DateOfBirth = will.Customer.DateOfBirth;
             }
 
             return willVm;
@@ -52,8 +51,7 @@ namespace Qwill.Services
                 var will = new Will()
                 {
                     WillStatus = willVm.WillStatus,
-                    FullName = willVm.FullName,
-                    Email = willVm.Email,
+                    Customer = willVm.Customer,
                     Children = willVm.Children,
                     UpdatedUtc = DateTime.UtcNow
                 };
@@ -65,12 +63,30 @@ namespace Qwill.Services
                 _logger.LogWarning("WillVmService Post exception", e.Message);
 
                 return null;
+            }
+        }
 
-                //return new Result
-                //{
-                //    Success = false,
-                //    ErrorMessage = e.Message
-                //};
+        public Guid? Create(WillVm willVm)
+        {
+            try
+            {
+                //var customer = new Customer() { FullName = willVm.FullName };
+
+                var will = new Will()
+                {
+                    WillStatus = willVm.WillStatus,
+                    Customer = willVm.Customer,
+                    Children = willVm.Children,
+                    UpdatedUtc = DateTime.UtcNow
+                };
+
+                return _willService.AddOrUpdate(will);
+            }
+            catch (Exception e)
+            {
+                _logger.LogWarning("WillVmService Post exception", e.Message);
+
+                return null;
             }
         }
     }

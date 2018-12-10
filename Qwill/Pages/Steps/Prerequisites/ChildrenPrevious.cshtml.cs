@@ -14,7 +14,7 @@ namespace Qwill.Pages.Steps.Prerequisites
             var referer = Request.Headers["Referer"].ToString();
 
             if (!IsValidReferer(referer))
-                return RedirectToPage("/Steps/NotPossible");
+                return RedirectToPage("/Steps/Prerequisites/NotPossible");
 
             return Page();
         }
@@ -26,12 +26,12 @@ namespace Qwill.Pages.Steps.Prerequisites
 
         public IActionResult OnPostYes()
         {
-            return RedirectToPage("/Steps/NotPossible");
+            return RedirectToPage("/Steps/Prerequisites/NotPossible");
         }
 
         public IActionResult OnPostNo()
         {
-            return RedirectToPage("/Steps/ChildrenExisting");
+            return RedirectToPage("/Steps/Register");
         }
 
         public IActionResult OnPostGoBack()

@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Qwill.Pages.Steps
+namespace Qwill.Pages.Account
 {
-    public class NotPossibleModel : PageModel
+    public class SignInModel : PageModel
     {
         public void OnGet()
         {

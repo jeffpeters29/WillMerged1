@@ -16,7 +16,7 @@ namespace Qwill.Pages
 
         public IActionResult OnPostNewWill()
         {
-            return RedirectToPage("/Steps/Prerequisites/WhereLive");
+            return RedirectToPage("/Steps/Register");
         }
     }
 }

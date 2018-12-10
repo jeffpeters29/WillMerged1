@@ -8,8 +8,10 @@ namespace Qwill.ViewModels
 
         public Guid? ChildId { get; set; }
 
-        public string ChildName { get; set; }
+        public string FirstName { get; set; }
 
-        public bool Over18 { get; set; }
+        public string LastName { get; set; }
+
+        public DateTime DateOfBirth { get; set; }
     }
 }

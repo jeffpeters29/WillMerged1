@@ -5,8 +5,8 @@ using System.Text;
 
 namespace ApplicationCore.Entities
 {
-    public class Person : EntityBaseWithGuid
+    public class GiftRecipient : PersonWithAddressRelationship
     {
-        public string FirstName { get; set; }
+        public string Description { get; set; }
     }
 }

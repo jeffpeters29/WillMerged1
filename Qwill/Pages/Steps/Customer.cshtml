@@ -1,0 +1,27 @@
+﻿@page
+@model Qwill.Pages.Steps.CustomerModel
+@{
+    ViewData["Title"] = "Customer";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h2>Customer</h2>
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-6 offset-3">
+            <h5>Your details</h5>
+
+            <div class="mt-3">
+                <form method="post">
+                    <button class="btn btn-primary btn-block" asp-page-handler="Yes">Yes</button>
+                    <button class="btn btn-primary btn-block" asp-page-handler="No">No</button>
+                    <button class="btn btn-link" asp-page-handler="GoBack">Go Back</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+

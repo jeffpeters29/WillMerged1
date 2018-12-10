@@ -14,14 +14,16 @@ namespace Qwill.ViewModels
 
         public WillStatus WillStatus { get; set; }
 
-        [Display(Name = "Full Name")]
-        [Required]
-        public string FullName { get; set; }
+        //[Display(Name = "Full Name")]
+        //[Required]
+        //public string FullName { get; set; }
 
-        [Display(Name = "Your e-mail")]
-        [Required(ErrorMessage = "An email address is required")]
-        [EmailAddress(ErrorMessage = "Invalid e-mail address")]
-        public string Email { get; set; }
+        //[Display(Name = "Your e-mail")]
+        //[Required(ErrorMessage = "An email address is required")]
+        //[EmailAddress(ErrorMessage = "Invalid e-mail address")]
+        //public string Email { get; set; }
+
+        public Customer Customer { get; set; }
 
         public List<Child> Children { get; set; }
     }
