@@ -20,7 +20,7 @@ namespace Qwill.Pages.Steps.Prerequisites
 
         public IActionResult OnPostElsewhere()
         {
-            return RedirectToPage("/Steps/NotPossible");
+            return RedirectToPage("/Steps/Prerequisites/NotPossible");
         }
     }
 }

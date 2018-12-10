@@ -22,7 +22,7 @@ namespace Qwill.Pages.Steps
         [BindProperty]
         public RegisterVm UserDetails { get; set; }
 
-        public async Task<IActionResult> OnPostCreateAccount(string returnUrl = "/Index")
+        public async Task<IActionResult> OnPostCreateAccount()
         {
             if (ModelState.IsValid)
             {
@@ -31,7 +31,7 @@ namespace Qwill.Pages.Steps
                 if (result.Succeeded)
                 {
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                    return LocalRedirect(returnUrl);
+                    return LocalRedirect("/Steps/Customer");
                 }
                 AddErrors(result);
             }

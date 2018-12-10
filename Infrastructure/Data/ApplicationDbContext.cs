@@ -46,6 +46,8 @@ namespace Infrastructure.Data
             builder.Entity<ResidueRecipient>(ConfigureResidueRecipient);
             builder.Entity<NonProvision>(ConfigureNonProvision);
             builder.Entity<Witness>(ConfigureWitness);
+
+            builder.Seed();
         }
 
         private void ConfigureAddress(EntityTypeBuilder<Address> builder)
