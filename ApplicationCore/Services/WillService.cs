@@ -7,14 +7,14 @@ using System.Collections.Generic;
 
 namespace ApplicationCore.Services
 {
-    public class WillsService : IWillsService
+    public class WillService : IWillService
     {
         private readonly IRepository<Will> _repository;
-        private readonly IAppLogger<WillsService> _logger;
+        private readonly IAppLogger<WillService> _logger;
 
-        public WillsService(IRepository<Will> willRepository, IAppLogger<WillsService> logger)
+        public WillService(IRepository<Will> repository, IAppLogger<WillService> logger)
         {
-            _repository = willRepository;
+            _repository = repository;
             _logger = logger;
         }
 
@@ -26,13 +26,7 @@ namespace ApplicationCore.Services
                 {
                     //Add
                     var resultWill = _repository.Add(will);
-
                     return resultWill?.Id;
-
-                    //return new Result
-                    //{
-                    //    Success = result != null 
-                    //};
                 }
                 else
                 {
@@ -40,26 +34,15 @@ namespace ApplicationCore.Services
                     _repository.Update(will);
                     return will.Id;
                 }
-
-                //return new Result
-                //{
-                //    Success = true
-                //};
             }
             catch (Exception ex)
             {
                 _logger.LogWarning($"WillsService : Error saving {will.Id}", ex.Message);
-                //return new Result
-                //{
-                //    Success = false,
-                //    ErrorMessage = ex.Message
-                //};
-
                 return null;
             }
         }
 
-        public Will GetWill(Guid id)
+        public Will Get(Guid id)
         {
             var spec = new WillSpecification(id);
             return _repository.GetSingleBySpec(spec);

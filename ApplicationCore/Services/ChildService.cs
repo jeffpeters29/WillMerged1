@@ -43,7 +43,7 @@ namespace ApplicationCore.Services
             }
         }
 
-        public Child GetChild(Guid id)
+        public Child Get(Guid id)
         {
             var spec = new ChildSpecification(id);
             return _repository.GetSingleBySpec(spec);

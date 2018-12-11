@@ -14,6 +14,7 @@ using Qwill.Interfaces;
 using Qwill.Services;
 using Microsoft.AspNetCore.Identity;
 using System;
+using Infrastructure.Services;
 
 namespace Qwill
 {
@@ -54,8 +55,12 @@ namespace Qwill
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
             services.AddScoped(typeof(IAsyncRepository<>), typeof(EfRepository<>));
 
-            services.AddTransient<IWillsService, WillsService>();
+            services.AddTransient<IWillService, WillService>();
             services.AddTransient<IWillVmService, WillVmService>();
+            services.AddTransient<ICustomerService, CustomerService>();
+            services.AddTransient<ICustomerVmService, CustomerVmService>();
+            services.AddTransient<IPafTokenService, PafTokenService>();
+            services.AddTransient<IAddressVmService, AddressVmService>();
 
             services.AddScoped(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
 

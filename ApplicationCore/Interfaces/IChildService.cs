@@ -6,6 +6,6 @@ namespace ApplicationCore.Interfaces
     public interface IChildService
     {
         Guid? AddOrUpdate(Child child);
-        Child GetChild(Guid id);
+        Child Get(Guid id);
     }
 }

@@ -12,19 +12,12 @@ namespace Qwill.ViewModels
     {
         public Guid Id { get; set; }
 
+        public string UserName { get; set; }
+
         public WillStatus WillStatus { get; set; }
 
-        //[Display(Name = "Full Name")]
-        //[Required]
-        //public string FullName { get; set; }
+        //public CustomerVm Customer { get; set; }
 
-        //[Display(Name = "Your e-mail")]
-        //[Required(ErrorMessage = "An email address is required")]
-        //[EmailAddress(ErrorMessage = "Invalid e-mail address")]
-        //public string Email { get; set; }
-
-        public Customer Customer { get; set; }
-
-        public List<Child> Children { get; set; }
+        //public List<Child> Children { get; set; }
     }
 }

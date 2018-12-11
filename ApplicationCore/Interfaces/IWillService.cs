@@ -1,16 +1,14 @@
 ﻿using ApplicationCore.Entities;
-using ApplicationCore.Entities.Common;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
 namespace ApplicationCore.Interfaces
 {
-    public interface IWillsService
+    public interface IWillService
     {
         Guid? AddOrUpdate(Will will);
-        Will GetWill(Guid id);
+        Will Get(Guid id);
         IEnumerable<Will> GetWills();
     }
 }

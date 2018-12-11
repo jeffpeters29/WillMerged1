@@ -27,7 +27,7 @@ namespace Qwill.Services
 
             if (id.IsGuid())
             {
-                var child = _childService.GetChild(id);
+                var child = _childService.Get(id);
 
                 if (child == null)
                     throw new ArgumentNullException(nameof(id));
@@ -61,7 +61,6 @@ namespace Qwill.Services
             catch (Exception e)
             {
                 _logger.LogWarning("ChildVmService Post exception", e.Message);
-
                 return null;
             }
         }

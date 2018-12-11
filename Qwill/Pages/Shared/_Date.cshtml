@@ -1,0 +1,25 @@
+﻿@model ViewModels.DateVm
+
+<div class="form-group">
+    <div class="col-4">
+        <label asp-for="DateOfBirth"></label>
+    </div>
+    <div class="col-8">
+        <div class="row">
+            <div class="col-4 ">
+                @Html.DropDownListFor(model => model.Day, Enumerable.Range(1, 31).Select(i => new SelectListItem { Value = i.ToString(), Text = i.ToString() }), new { @class = "form-control" })
+                @*<input asp-for="Day" class="form-control" />*@
+            </div>
+            <div class="col-4">
+                @Html.DropDownListFor(model => model.Month, Enumerable.Range(1, 12).Select(i => new SelectListItem { Value = i.ToString(), Text = System.Globalization.CultureInfo.InvariantCulture.DateTimeFormat.GetAbbreviatedMonthName(i) }), new { @class = "form-control" })
+                @*<input asp-for="Month" class="form-control" />*@
+            </div>
+            <div class="col-4">
+                @Html.DropDownListFor(model => model.Year, Enumerable.Range(2011 - 151, 133).OrderByDescending(i => i).Select(i => new SelectListItem { Value = i.ToString(), Text = i.ToString() }), new { @class = "form-control" })
+                @*<input asp-for="Year" class="form-control" />*@
+            </div>
+        </div>
+    </div>
+   
+</div>
+

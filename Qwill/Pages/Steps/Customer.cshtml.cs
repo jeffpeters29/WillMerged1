@@ -1,19 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using ApplicationCore.Helpers;
 using ApplicationCore.Interfaces;
 using Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Qwill.Interfaces;
+using Qwill.ViewModels;
+using System;
+using System.Threading.Tasks;
 
 namespace Qwill.Pages.Steps
 {
     public class CustomerModel : PageModel
     {
         private readonly IWillVmService _willVmService;
+        private readonly ICustomerVmService _customerVmService;
         private readonly IAppLogger<CustomerModel> _logger;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
@@ -21,10 +22,12 @@ namespace Qwill.Pages.Steps
         private readonly string _errorNotFound;
         private readonly string _errorDefaultMessage;
 
-        public CustomerModel(IWillVmService willVmService, IAppLogger<CustomerModel> appLogger
-                            ,SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
+        public CustomerModel(IWillVmService willVmService, ICustomerVmService customerVmService,
+                             IAppLogger<CustomerModel> appLogger, SignInManager<ApplicationUser> signInManager, 
+                             UserManager<ApplicationUser> userManager)
         {
             _willVmService = willVmService;
+            _customerVmService = customerVmService;
             _logger = appLogger;
             _signInManager = signInManager;
             _userManager = userManager;
@@ -33,20 +36,101 @@ namespace Qwill.Pages.Steps
             _errorDefaultMessage = "It appears something went wrong. Please try again later. Should you still have the same issue, please get in touch with support.";
         }
 
-        public void OnGet()
+        [BindProperty]
+        public WillVm WillInfo { get; set; } = new WillVm();
+        [BindProperty]
+        public CustomerVm CustomerInfo { get; set; } = new CustomerVm();
+
+        [TempData]
+        public string ErrorMessage { get; set; }
+       
+        public async Task OnGet(Guid id)
         {
-            var user = _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
+            GetWillInfo(id);
 
+            await GetCustomerInfo();
 
+            //var user = _userManager.FindByNameAsync(userName);
 
-            if (_signInManager.IsSignedIn(HttpContext.User))
+            //if (_signInManager.IsSignedIn(HttpContext.User))
+            //{
+            //    var x = 1;
+            //}
+            //else
+            //{
+            //    var y = 2;
+            //}
+        }
+
+        private void GetWillInfo(Guid id)
+        {
+            try
             {
-                var x = 1;
+                WillInfo = _willVmService.Get(id);
+            }
+            catch (ArgumentNullException e)
+            {
+                _logger.LogWarning("Customer GetWillInfo exception", e.Message);
+                ErrorMessage = _errorNotFound;
+            }
+            catch (Exception e)
+            {
+                _logger.LogWarning("Customer GetWillInfo exception", e.Message);
+                ErrorMessage = _errorDefaultMessage;
+            }
+
+            // Populate
+            if (!string.IsNullOrEmpty(WillInfo.UserName))
+            {
+                WillInfo.UserName = HttpContext.User.Identity.Name;
             }
             else
             {
-                var y = 2;
+                WillInfo.UserName = "aa@aa.com";
             }
         }
+
+        private async Task GetCustomerInfo()
+        {
+            try
+            {
+                CustomerInfo = await _customerVmService.GetByWillId(WillInfo.Id);
+            }
+            catch (ArgumentNullException e)
+            {
+                _logger.LogWarning("Customer GetCustomerInfo exception", e.Message);
+                ErrorMessage = _errorNotFound;
+            }
+            catch (Exception e)
+            {
+                _logger.LogWarning("Customer GetCustomerInfo exception", e.Message);
+                ErrorMessage = _errorDefaultMessage;
+            }
+        }
+
+
+        public IActionResult OnPost()
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+            var willId = _willVmService.Post(WillInfo);
+
+            CustomerInfo.WillId = willId ?? Guid.Empty;
+
+            var customerId = _customerVmService.Post(CustomerInfo);
+
+            //Error
+            if (willId == null)
+            {
+                _logger.LogWarning("Customer OnPost exception", _errorDefaultMessage);
+                return Page();
+            }
+
+            return RedirectToPage("/Step2", new { id = willId.Value });
+        }
+
     }
 }

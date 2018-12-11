@@ -7,13 +7,13 @@ namespace ApplicationCore.Entities
 {
     public class Will : EntityBaseWithGuid
     {
-        public string UserId { get; set; }
+        public string UserName { get; set; }
 
         public WillStatus WillStatus { get; set; }
 
         //-------------
 
-        public Guid CustomerId { get; set; }
+        public Guid? CustomerId { get; set; }
         public Customer Customer { get; set; }
 
         public Guid? PartnerId { get; set; }
@@ -39,7 +39,7 @@ namespace ApplicationCore.Entities
 
         //-------------
 
-        public Guid FuneralTypeId { get; set; }
+        public Guid? FuneralTypeId { get; set; }
         public FuneralType FuneralType { get; set; }
 
         public string FuneralWishes { get; set; }

@@ -88,7 +88,7 @@ namespace Infrastructure.Data
         {
             builder.HasKey(w => w.Id);
 
-            builder.Property(w => w.UserId).IsRequired(true);
+            builder.Property(w => w.UserName).IsRequired(true);
 
             builder.Property(w => w.WillStatus).IsRequired(true);
 

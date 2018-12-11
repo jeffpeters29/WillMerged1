@@ -1,0 +1,45 @@
+﻿@model ViewModels.AddressVm
+<!-- ###   PAF (Start)  ### -->
+<div class="form-group">
+    <input asp-for="Token" type="hidden" />
+    <input asp-for="IsLive" type="hidden" />
+</div>
+
+<div class="form-group">
+    <label asp-for="Postcode"></label> *
+    <input asp-for="Postcode" class="form-control" id="CurrentAddress" />
+    <span asp-validation-for="Postcode" class="text-danger"></span>
+</div>
+
+<!-- ###  PAF - RESULTS  ### -->
+<div class="form-group pafContent">
+    <div id="CurrentAddressResult"></div>
+</div>
+
+<div id="address-readonly-container">
+    <div class="form-group">
+        <label asp-for="Number"></label>
+        <input asp-for="Number" class="form-control" />
+        <span asp-validation-for="Number" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Street"></label>
+        <input asp-for="Street" class="form-control" />
+        <span asp-validation-for="Street" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Village"></label>
+        <input asp-for="Village" class="form-control" />
+        <span asp-validation-for="Village" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="City"></label>
+        <input asp-for="City" class="form-control" />
+        <span asp-validation-for="City" class="text-danger"></span>
+    </div>
+</div>
+<!-- ###   PAF (End)  ### -->
+
+@section Scripts {
+    <script src="~/js/PAF.js"></script>    
+}
