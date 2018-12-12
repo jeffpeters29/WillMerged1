@@ -515,10 +515,9 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("CreatedUtc")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid?>("CustomerId")
-                        .IsRequired();
+                    b.Property<Guid?>("CustomerId");
 
-                    b.Property<Guid>("FuneralTypeId");
+                    b.Property<Guid?>("FuneralTypeId");
 
                     b.Property<string>("FuneralWishes");
 
@@ -535,7 +534,8 @@ namespace Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[CustomerId] IS NOT NULL");
 
                     b.HasIndex("FuneralTypeId");
 
@@ -741,13 +741,11 @@ namespace Infrastructure.Migrations
                 {
                     b.HasOne("ApplicationCore.Entities.Customer", "Customer")
                         .WithOne("Will")
-                        .HasForeignKey("ApplicationCore.Entities.Will", "CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ApplicationCore.Entities.Will", "CustomerId");
 
                     b.HasOne("ApplicationCore.Entities.FuneralType", "FuneralType")
                         .WithMany("Wills")
-                        .HasForeignKey("FuneralTypeId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("FuneralTypeId");
 
                     b.HasOne("ApplicationCore.Entities.Partner", "Partner")
                         .WithOne("Will")

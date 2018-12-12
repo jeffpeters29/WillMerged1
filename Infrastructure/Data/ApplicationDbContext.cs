@@ -95,7 +95,7 @@ namespace Infrastructure.Data
             builder.HasOne(w => w.Customer)
                    .WithOne(c => c.Will)
                    .HasForeignKey<Will>(w => w.CustomerId)
-                   .IsRequired(true);
+                   .IsRequired(false);
 
             builder.HasOne(w => w.Partner)
                    .WithOne(p => p.Will)
@@ -114,7 +114,7 @@ namespace Infrastructure.Data
 
             builder.HasOne(w => w.FuneralType)
                    .WithMany(m => m.Wills)
-                   .IsRequired(true);
+                   .IsRequired(false);
 
             builder.Property(w => w.FuneralWishes).IsRequired(false);
         }

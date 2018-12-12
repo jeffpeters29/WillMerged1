@@ -122,11 +122,11 @@ namespace Infrastructure.Migrations
                     CreatedUtc = table.Column<DateTime>(nullable: false),
                     UpdatedUtc = table.Column<DateTime>(nullable: false),
                     Id = table.Column<Guid>(nullable: false),
-                    UserId = table.Column<string>(nullable: false),
+                    UserName = table.Column<string>(nullable: false),
                     WillStatus = table.Column<int>(nullable: false),
-                    CustomerId = table.Column<Guid>(nullable: false),
+                    CustomerId = table.Column<Guid>(nullable: true),
                     PartnerId = table.Column<Guid>(nullable: true),
-                    FuneralTypeId = table.Column<Guid>(nullable: false),
+                    FuneralTypeId = table.Column<Guid>(nullable: true),
                     FuneralWishes = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -137,13 +137,13 @@ namespace Infrastructure.Migrations
                         column: x => x.CustomerId,
                         principalTable: "Customers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Wills_FuneralTypes_FuneralTypeId",
                         column: x => x.FuneralTypeId,
                         principalTable: "FuneralTypes",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Wills_Partners_PartnerId",
                         column: x => x.PartnerId,
@@ -660,7 +660,8 @@ namespace Infrastructure.Migrations
                 name: "IX_Wills_CustomerId",
                 table: "Wills",
                 column: "CustomerId",
-                unique: true);
+                unique: true,
+                filter: "[CustomerId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Wills_FuneralTypeId",
