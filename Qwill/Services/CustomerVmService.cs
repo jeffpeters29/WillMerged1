@@ -12,13 +12,19 @@ namespace Qwill.Services
     {
         private readonly ICustomerService _customerService;
         private readonly IAddressVmService _addressVmService;
+        private readonly IWillService _willService;
+        private readonly IMaritalStatusVmService _maritalStatusVmService;
         private readonly IAppLogger<CustomerVmService> _logger;
 
-        public CustomerVmService(ICustomerService customerService, IAppLogger<CustomerVmService> appLogger, IAddressVmService addressVmService)
+        public CustomerVmService(ICustomerService customerService, IAppLogger<CustomerVmService> appLogger, 
+                                 IAddressVmService addressVmService, IWillService willService,
+                                 IMaritalStatusVmService maritalStatusVmService)
         {
             _customerService = customerService;
             _logger = appLogger;
             _addressVmService = addressVmService;
+            _willService = willService;
+            _maritalStatusVmService = maritalStatusVmService;
         }
 
         public async Task<CustomerVm> Get(Guid id)
@@ -91,10 +97,13 @@ namespace Qwill.Services
             {
                 var customer = new Customer()
                 {
+                    Will = _willService.Get(customerVm.WillId),
                     FirstName = customerVm.FirstName,
                     LastName = customerVm.LastName,
                     DateOfBirth = new DateTime(customerVm.DateOfBirth.Year, customerVm.DateOfBirth.Month, customerVm.DateOfBirth.Day),
                     Address = customerVm.Address.ToAddress(),
+                    Telephone = customerVm.Telephone,
+                    MaritalStatusId = customerVm.MaritalStatusId,
                     UpdatedUtc = DateTime.UtcNow
                 };
 

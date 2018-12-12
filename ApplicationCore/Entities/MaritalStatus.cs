@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ApplicationCore.Entities.Common;
+using System;
 using System.Collections.Generic;
 
 namespace ApplicationCore.Entities

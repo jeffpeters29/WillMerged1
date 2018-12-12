@@ -10,8 +10,7 @@ namespace ApplicationCore.Specifications
         {
         }
 
-        public WillSpecification(Guid id)
-            : base(i => i.Id.Equals(id))
+        public WillSpecification(Guid id) : base(i => i.Id.Equals(id))
         {
         }
     }

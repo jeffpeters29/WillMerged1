@@ -16,9 +16,13 @@ namespace Qwill.ViewModels
         [Display(Name = "Last name")]
         public string LastName { get; set; }
 
+        public string Telephone { get; set; }
+
         public DateVm DateOfBirth { get; set; }
 
         public AddressVm Address { get; set; }
+
+        public Guid? MaritalStatusId { get; set; }
 
         public Customer ToCustomer()
         {

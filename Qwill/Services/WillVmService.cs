@@ -21,9 +21,6 @@ namespace Qwill.Services
         public WillVm Get(Guid id)
         {
             var willVm = new WillVm();
-            //{
-            //Children = new List<Child>()
-            //};
 
             if (id.IsGuid())
             {
@@ -35,10 +32,6 @@ namespace Qwill.Services
                 willVm.Id = will.Id;
                 willVm.WillStatus = will.WillStatus;
                 willVm.UserName = will.UserName;
-                //willVm.Customer.FirstName = will.Customer.FirstName;
-                //willVm.Customer.DateOfBirth.Day = will.Customer.DateOfBirth.Day;
-                //willVm.Customer.DateOfBirth.Month = will.Customer.DateOfBirth.Month;
-                //willVm.Customer.DateOfBirth.Year = will.Customer.DateOfBirth.Year;
             }
 
             return willVm;
@@ -52,8 +45,6 @@ namespace Qwill.Services
                 {
                     WillStatus = willVm.WillStatus,
                     UserName = willVm.UserName,
-                    //Customer = willVm.Customer.ToCustomer(),
-                    //Children = willVm.Children,
                     UpdatedUtc = DateTime.UtcNow
                 };
 
@@ -65,29 +56,5 @@ namespace Qwill.Services
                 return null;
             }
         }
-
-        //public Guid? Create(WillVm willVm)
-        //{
-        //    try
-        //    {
-        //        //var customer = new Customer() { FullName = willVm.FullName };
-
-        //        var will = new Will()
-        //        {
-        //            WillStatus = willVm.WillStatus,
-        //            Customer = willVm.Customer.ToCustomer(),
-        //            Children = willVm.Children,
-        //            UpdatedUtc = DateTime.UtcNow
-        //        };
-
-        //        return _willService.AddOrUpdate(will);
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        _logger.LogWarning("WillVmService Post exception", e.Message);
-
-        //        return null;
-        //    }
-        //}
     }
 }

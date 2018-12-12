@@ -54,13 +54,13 @@ namespace Infrastructure.Data
         {
             builder.HasKey(a => a.Id);
 
-            builder.Property(a => a.Postcode).IsRequired(true).HasMaxLength(50);
+            builder.Property(a => a.Postcode).IsRequired(true).HasMaxLength(10);
 
-            builder.Property(a => a.Number).IsRequired(true).HasMaxLength(100);
+            builder.Property(a => a.Number).IsRequired(false).HasMaxLength(100);
 
-            builder.Property(a => a.Village).IsRequired(true).HasMaxLength(100);
+            builder.Property(a => a.Village).IsRequired(false).HasMaxLength(100);
 
-            builder.Property(a => a.City).IsRequired(true).HasMaxLength(100);
+            builder.Property(a => a.City).IsRequired(false).HasMaxLength(100);
         }
 
         private void ConfigureFuneralType(EntityTypeBuilder<FuneralType> builder)
@@ -113,7 +113,7 @@ namespace Infrastructure.Data
             builder.HasMany(w => w.Witnesses).WithOne(x => x.Will);
 
             builder.HasOne(w => w.FuneralType)
-                   .WithMany(m => m.Wills)
+                   .WithMany(f => f.Wills)
                    .IsRequired(false);
 
             builder.Property(w => w.FuneralWishes).IsRequired(false);
@@ -130,7 +130,7 @@ namespace Infrastructure.Data
 
             builder.HasOne(c => c.MaritalStatus)
                    .WithMany(m => m.Customers)
-                   .IsRequired(true);
+                   .IsRequired(false);
 
             builder.HasOne(c => c.Address)
                    .WithOne(a => a.Customer)

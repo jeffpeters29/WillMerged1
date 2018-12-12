@@ -1,0 +1,20 @@
+﻿@model ViewModels.MaritalStatusVm
+@{
+    const string selectTxt = "--Select--";
+    const string selectVal = "00000000-0000-0000-0000-000000000000";
+}
+
+<div>
+    <div class="form-group">
+        <label asp-for="@Model.SelectedMaritalStatus"></label>
+        <select asp-for="@Model.SelectedMaritalStatus"
+                asp-items="@(new SelectList(Model.DdlMaritalStatuses, "Id", "Description"))"
+                id="ddl_maritalstatus" 
+                class="custom-select d-block w-100" 
+                onchange="MaritalStatusChanged()">
+                <option value="@selectVal">@selectTxt</option>
+        </select>
+        <span asp-validation-for="@Model.SelectedMaritalStatus" class="text-danger"></span>
+        <input type="hidden" asp-for="@Model.SelectedMaritalStatus" id="id_maritalstatus" />
+    </div>
+</div>

@@ -1,10 +1,10 @@
 ﻿@model ViewModels.DateVm
 
 <div class="form-group">
-    <div class="col-4">
+    <div>
         <label asp-for="DateOfBirth"></label>
     </div>
-    <div class="col-8">
+    <div>
         <div class="row">
             <div class="col-4 ">
                 @Html.DropDownListFor(model => model.Day, Enumerable.Range(1, 31).Select(i => new SelectListItem { Value = i.ToString(), Text = i.ToString() }), new { @class = "form-control" })
@@ -20,6 +20,5 @@
             </div>
         </div>
     </div>
-   
 </div>
 

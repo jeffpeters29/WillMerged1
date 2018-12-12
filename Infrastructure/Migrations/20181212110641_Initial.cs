@@ -14,11 +14,11 @@ namespace Infrastructure.Migrations
                     CreatedUtc = table.Column<DateTime>(nullable: false),
                     UpdatedUtc = table.Column<DateTime>(nullable: false),
                     Id = table.Column<Guid>(nullable: false),
-                    Postcode = table.Column<string>(maxLength: 50, nullable: false),
-                    Number = table.Column<string>(maxLength: 100, nullable: false),
+                    Postcode = table.Column<string>(maxLength: 10, nullable: false),
+                    Number = table.Column<string>(maxLength: 100, nullable: true),
                     Street = table.Column<string>(nullable: true),
-                    Village = table.Column<string>(maxLength: 100, nullable: false),
-                    City = table.Column<string>(maxLength: 100, nullable: false)
+                    Village = table.Column<string>(maxLength: 100, nullable: true),
+                    City = table.Column<string>(maxLength: 100, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -96,7 +96,7 @@ namespace Infrastructure.Migrations
                     AddressId = table.Column<Guid>(nullable: false),
                     DateOfBirth = table.Column<DateTime>(nullable: false),
                     Telephone = table.Column<string>(nullable: true),
-                    MaritalStatusId = table.Column<Guid>(nullable: false)
+                    MaritalStatusId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -112,7 +112,7 @@ namespace Infrastructure.Migrations
                         column: x => x.MaritalStatusId,
                         principalTable: "MaritalStatuses",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(

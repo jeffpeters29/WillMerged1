@@ -61,6 +61,8 @@ namespace Qwill
             services.AddTransient<ICustomerVmService, CustomerVmService>();
             services.AddTransient<IPafTokenService, PafTokenService>();
             services.AddTransient<IAddressVmService, AddressVmService>();
+            services.AddTransient<IMaritalStatusService, MaritalStatusService>();
+            services.AddTransient<IMaritalStatusVmService, MaritalStatusVmService>();
 
             services.AddScoped(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
 

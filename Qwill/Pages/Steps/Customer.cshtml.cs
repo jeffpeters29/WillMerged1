@@ -15,6 +15,7 @@ namespace Qwill.Pages.Steps
     {
         private readonly IWillVmService _willVmService;
         private readonly ICustomerVmService _customerVmService;
+        private readonly IMaritalStatusVmService _maritalStatusService;
         private readonly IAppLogger<CustomerModel> _logger;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
@@ -23,11 +24,13 @@ namespace Qwill.Pages.Steps
         private readonly string _errorDefaultMessage;
 
         public CustomerModel(IWillVmService willVmService, ICustomerVmService customerVmService,
+                             IMaritalStatusVmService maritalStatusService,
                              IAppLogger<CustomerModel> appLogger, SignInManager<ApplicationUser> signInManager, 
                              UserManager<ApplicationUser> userManager)
         {
             _willVmService = willVmService;
             _customerVmService = customerVmService;
+            _maritalStatusService = maritalStatusService;
             _logger = appLogger;
             _signInManager = signInManager;
             _userManager = userManager;
@@ -36,6 +39,8 @@ namespace Qwill.Pages.Steps
             _errorDefaultMessage = "It appears something went wrong. Please try again later. Should you still have the same issue, please get in touch with support.";
         }
 
+        [BindProperty]
+        public MaritalStatusVm MaritalStatusInfo { get; set; }
         [BindProperty]
         public WillVm WillInfo { get; set; } = new WillVm();
         [BindProperty]
@@ -46,6 +51,8 @@ namespace Qwill.Pages.Steps
        
         public async Task OnGet(Guid id)
         {
+            MaritalStatusInfo = _maritalStatusService.GetAll();
+
             GetWillInfo(id);
 
             await GetCustomerInfo();
@@ -129,8 +136,7 @@ namespace Qwill.Pages.Steps
                 return Page();
             }
 
-            return RedirectToPage("/Step2", new { id = willId.Value });
+            return RedirectToPage("/Steps/ChildrenExisting", new { id = willId.Value });
         }
-
     }
 }

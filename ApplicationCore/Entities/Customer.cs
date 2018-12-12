@@ -9,7 +9,7 @@ namespace ApplicationCore.Entities
 
         public string Telephone { get; set; }
 
-        public Guid MaritalStatusId { get; set; }
+        public Guid? MaritalStatusId { get; set; }
         public MaritalStatus MaritalStatus { get; set; }
     }
 }
