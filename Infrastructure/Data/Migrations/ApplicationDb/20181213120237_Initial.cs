@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Infrastructure.Migrations
+namespace Infrastructure.Migrations.ApplicationDb
 {
     public partial class Initial : Migration
     {
@@ -11,14 +11,14 @@ namespace Infrastructure.Migrations
                 name: "Addresses",
                 columns: table => new
                 {
-                    CreatedUtc = table.Column<DateTime>(nullable: false),
-                    UpdatedUtc = table.Column<DateTime>(nullable: false),
                     Id = table.Column<Guid>(nullable: false),
                     Postcode = table.Column<string>(maxLength: 10, nullable: false),
                     Number = table.Column<string>(maxLength: 100, nullable: true),
                     Street = table.Column<string>(nullable: true),
                     Village = table.Column<string>(maxLength: 100, nullable: true),
-                    City = table.Column<string>(maxLength: 100, nullable: true)
+                    City = table.Column<string>(maxLength: 100, nullable: true),
+                    CreatedUtc = table.Column<DateTime>(nullable: false),
+                    UpdatedUtc = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -30,7 +30,8 @@ namespace Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    Description = table.Column<string>(maxLength: 50, nullable: false)
+                    Description = table.Column<string>(maxLength: 50, nullable: false),
+                    IsActive = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -42,7 +43,8 @@ namespace Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    Description = table.Column<string>(maxLength: 50, nullable: false)
+                    Description = table.Column<string>(maxLength: 50, nullable: false),
+                    IsActive = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -54,7 +56,8 @@ namespace Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    Description = table.Column<string>(maxLength: 50, nullable: false)
+                    Description = table.Column<string>(maxLength: 50, nullable: false),
+                    IsActive = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -65,13 +68,13 @@ namespace Infrastructure.Migrations
                 name: "Partners",
                 columns: table => new
                 {
-                    CreatedUtc = table.Column<DateTime>(nullable: false),
-                    UpdatedUtc = table.Column<DateTime>(nullable: false),
                     Id = table.Column<Guid>(nullable: false),
                     FirstName = table.Column<string>(maxLength: 50, nullable: false),
                     LastName = table.Column<string>(maxLength: 50, nullable: false),
                     AddressId = table.Column<Guid>(nullable: false),
-                    DateOfBirth = table.Column<DateTime>(nullable: false)
+                    DateOfBirth = table.Column<DateTime>(nullable: false),
+                    CreatedUtc = table.Column<DateTime>(nullable: false),
+                    UpdatedUtc = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -88,15 +91,15 @@ namespace Infrastructure.Migrations
                 name: "Customers",
                 columns: table => new
                 {
-                    CreatedUtc = table.Column<DateTime>(nullable: false),
-                    UpdatedUtc = table.Column<DateTime>(nullable: false),
                     Id = table.Column<Guid>(nullable: false),
                     FirstName = table.Column<string>(maxLength: 50, nullable: false),
                     LastName = table.Column<string>(maxLength: 50, nullable: false),
                     AddressId = table.Column<Guid>(nullable: false),
                     DateOfBirth = table.Column<DateTime>(nullable: false),
                     Telephone = table.Column<string>(nullable: true),
-                    MaritalStatusId = table.Column<Guid>(nullable: true)
+                    MaritalStatusId = table.Column<Guid>(nullable: true),
+                    CreatedUtc = table.Column<DateTime>(nullable: false),
+                    UpdatedUtc = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -119,15 +122,15 @@ namespace Infrastructure.Migrations
                 name: "Wills",
                 columns: table => new
                 {
-                    CreatedUtc = table.Column<DateTime>(nullable: false),
-                    UpdatedUtc = table.Column<DateTime>(nullable: false),
                     Id = table.Column<Guid>(nullable: false),
                     UserName = table.Column<string>(nullable: false),
                     WillStatus = table.Column<int>(nullable: false),
                     CustomerId = table.Column<Guid>(nullable: true),
                     PartnerId = table.Column<Guid>(nullable: true),
                     FuneralTypeId = table.Column<Guid>(nullable: true),
-                    FuneralWishes = table.Column<string>(nullable: true)
+                    FuneralWishes = table.Column<string>(nullable: true),
+                    CreatedUtc = table.Column<DateTime>(nullable: false),
+                    UpdatedUtc = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -156,15 +159,15 @@ namespace Infrastructure.Migrations
                 name: "CashRecipients",
                 columns: table => new
                 {
-                    CreatedUtc = table.Column<DateTime>(nullable: false),
-                    UpdatedUtc = table.Column<DateTime>(nullable: false),
                     Id = table.Column<Guid>(nullable: false),
                     FirstName = table.Column<string>(maxLength: 50, nullable: false),
                     LastName = table.Column<string>(maxLength: 50, nullable: false),
                     WillId = table.Column<Guid>(nullable: true),
                     AddressId = table.Column<Guid>(nullable: false),
                     RelationshipId = table.Column<Guid>(nullable: false),
-                    Amount = table.Column<decimal>(type: "decimal(10, 2)", nullable: false)
+                    Amount = table.Column<decimal>(type: "decimal(10, 2)", nullable: false),
+                    CreatedUtc = table.Column<DateTime>(nullable: false),
+                    UpdatedUtc = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -192,9 +195,7 @@ namespace Infrastructure.Migrations
             migrationBuilder.CreateTable(
                 name: "Executors",
                 columns: table => new
-                {
-                    CreatedUtc = table.Column<DateTime>(nullable: false),
-                    UpdatedUtc = table.Column<DateTime>(nullable: false),
+                {                    
                     Id = table.Column<Guid>(nullable: false),
                     FirstName = table.Column<string>(maxLength: 50, nullable: false),
                     LastName = table.Column<string>(maxLength: 50, nullable: false),
@@ -202,7 +203,9 @@ namespace Infrastructure.Migrations
                     AddressId = table.Column<Guid>(nullable: false),
                     RelationshipId = table.Column<Guid>(nullable: false),
                     Email = table.Column<string>(nullable: false),
-                    IsAwareFinances = table.Column<bool>(nullable: false)
+                    IsAwareFinances = table.Column<bool>(nullable: false),
+                    CreatedUtc = table.Column<DateTime>(nullable: false),
+                    UpdatedUtc = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -231,15 +234,15 @@ namespace Infrastructure.Migrations
                 name: "GiftRecipients",
                 columns: table => new
                 {
-                    CreatedUtc = table.Column<DateTime>(nullable: false),
-                    UpdatedUtc = table.Column<DateTime>(nullable: false),
                     Id = table.Column<Guid>(nullable: false),
                     FirstName = table.Column<string>(maxLength: 50, nullable: false),
                     LastName = table.Column<string>(maxLength: 50, nullable: false),
                     WillId = table.Column<Guid>(nullable: true),
                     AddressId = table.Column<Guid>(nullable: false),
                     RelationshipId = table.Column<Guid>(nullable: false),
-                    Description = table.Column<string>(maxLength: 250, nullable: false)
+                    Description = table.Column<string>(maxLength: 250, nullable: false),
+                    CreatedUtc = table.Column<DateTime>(nullable: false),
+                    UpdatedUtc = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -268,14 +271,14 @@ namespace Infrastructure.Migrations
                 name: "LegalGuardians",
                 columns: table => new
                 {
-                    CreatedUtc = table.Column<DateTime>(nullable: false),
-                    UpdatedUtc = table.Column<DateTime>(nullable: false),
                     Id = table.Column<Guid>(nullable: false),
                     FirstName = table.Column<string>(maxLength: 50, nullable: false),
                     LastName = table.Column<string>(maxLength: 50, nullable: false),
                     WillId = table.Column<Guid>(nullable: true),
                     AddressId = table.Column<Guid>(nullable: false),
-                    RelationshipId = table.Column<Guid>(nullable: false)
+                    RelationshipId = table.Column<Guid>(nullable: false),
+                    CreatedUtc = table.Column<DateTime>(nullable: false),
+                    UpdatedUtc = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -304,14 +307,14 @@ namespace Infrastructure.Migrations
                 name: "NonProvisions",
                 columns: table => new
                 {
-                    CreatedUtc = table.Column<DateTime>(nullable: false),
-                    UpdatedUtc = table.Column<DateTime>(nullable: false),
                     Id = table.Column<Guid>(nullable: false),
                     FirstName = table.Column<string>(maxLength: 50, nullable: false),
                     LastName = table.Column<string>(maxLength: 50, nullable: false),
                     WillId = table.Column<Guid>(nullable: true),
                     ReasonWhy = table.Column<string>(maxLength: 500, nullable: true),
-                    RelationshipId = table.Column<Guid>(nullable: false)
+                    RelationshipId = table.Column<Guid>(nullable: false),
+                    CreatedUtc = table.Column<DateTime>(nullable: false),
+                    UpdatedUtc = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -334,8 +337,6 @@ namespace Infrastructure.Migrations
                 name: "ResidueRecipients",
                 columns: table => new
                 {
-                    CreatedUtc = table.Column<DateTime>(nullable: false),
-                    UpdatedUtc = table.Column<DateTime>(nullable: false),
                     Id = table.Column<Guid>(nullable: false),
                     FirstName = table.Column<string>(maxLength: 50, nullable: false),
                     LastName = table.Column<string>(maxLength: 50, nullable: false),
@@ -343,7 +344,9 @@ namespace Infrastructure.Migrations
                     AddressId = table.Column<Guid>(nullable: false),
                     RelationshipId = table.Column<Guid>(nullable: false),
                     Level = table.Column<int>(nullable: false),
-                    Percentage = table.Column<decimal>(type: "decimal(5, 2)", nullable: false)
+                    Percentage = table.Column<decimal>(type: "decimal(5, 2)", nullable: false),
+                    CreatedUtc = table.Column<DateTime>(nullable: false),
+                    UpdatedUtc = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -372,14 +375,14 @@ namespace Infrastructure.Migrations
                 name: "Trustees",
                 columns: table => new
                 {
-                    CreatedUtc = table.Column<DateTime>(nullable: false),
-                    UpdatedUtc = table.Column<DateTime>(nullable: false),
                     Id = table.Column<Guid>(nullable: false),
                     FirstName = table.Column<string>(maxLength: 50, nullable: false),
                     LastName = table.Column<string>(maxLength: 50, nullable: false),
                     WillId = table.Column<Guid>(nullable: true),
                     AddressId = table.Column<Guid>(nullable: false),
-                    RelationshipId = table.Column<Guid>(nullable: false)
+                    RelationshipId = table.Column<Guid>(nullable: false),
+                    CreatedUtc = table.Column<DateTime>(nullable: false),
+                    UpdatedUtc = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -408,14 +411,14 @@ namespace Infrastructure.Migrations
                 name: "Witnesses",
                 columns: table => new
                 {
-                    CreatedUtc = table.Column<DateTime>(nullable: false),
-                    UpdatedUtc = table.Column<DateTime>(nullable: false),
                     Id = table.Column<Guid>(nullable: false),
                     FirstName = table.Column<string>(maxLength: 50, nullable: false),
                     LastName = table.Column<string>(maxLength: 50, nullable: false),
                     WillId = table.Column<Guid>(nullable: true),
                     AddressId = table.Column<Guid>(nullable: false),
-                    Occupation = table.Column<string>(nullable: false)
+                    Occupation = table.Column<string>(nullable: false),
+                    CreatedUtc = table.Column<DateTime>(nullable: false),
+                    UpdatedUtc = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -438,8 +441,6 @@ namespace Infrastructure.Migrations
                 name: "Children",
                 columns: table => new
                 {
-                    CreatedUtc = table.Column<DateTime>(nullable: false),
-                    UpdatedUtc = table.Column<DateTime>(nullable: false),
                     Id = table.Column<Guid>(nullable: false),
                     FirstName = table.Column<string>(maxLength: 50, nullable: false),
                     LastName = table.Column<string>(maxLength: 50, nullable: false),
@@ -448,7 +449,9 @@ namespace Infrastructure.Migrations
                     IsAddressSame = table.Column<bool>(nullable: false),
                     AddressId = table.Column<Guid>(nullable: true),
                     RelationshipId = table.Column<Guid>(nullable: false),
-                    LegalGuardianId = table.Column<Guid>(nullable: true)
+                    LegalGuardianId = table.Column<Guid>(nullable: true),
+                    CreatedUtc = table.Column<DateTime>(nullable: false),
+                    UpdatedUtc = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -481,24 +484,24 @@ namespace Infrastructure.Migrations
 
             migrationBuilder.InsertData(
                 table: "FuneralTypes",
-                columns: new[] { "Id", "Description" },
+                columns: new[] { "Id", "Description", "IsActive" },
                 values: new object[,]
                 {
-                    { new Guid("01dd3472-4837-4934-8f6c-c350af361b8b"), "Burial" },
-                    { new Guid("7d38792f-e84c-4a19-a1c5-b9047be50885"), "Cremation" }
+                    { new Guid("01dd3472-4837-4934-8f6c-c350af361b8b"), "Burial", true },
+                    { new Guid("7d38792f-e84c-4a19-a1c5-b9047be50885"), "Cremation", true }
                 });
 
             migrationBuilder.InsertData(
                 table: "MaritalStatuses",
-                columns: new[] { "Id", "Description" },
+                columns: new[] { "Id", "Description", "IsActive" },
                 values: new object[,]
                 {
-                    { new Guid("633976ac-1367-42cc-812e-cbfcbbefc789"), "Married" },
-                    { new Guid("f01436ec-ef7b-4ec0-bb58-58c5ce6932d8"), "Civil Partnership" },
-                    { new Guid("b2d98283-9bb5-4fcf-a584-2728c4c7c757"), "Single" },
-                    { new Guid("7cd83800-507f-4160-a216-a6d92fd1edb6"), "Divorced" },
-                    { new Guid("97acd8f0-e48a-4adf-8957-0f869f64a587"), "Separated" },
-                    { new Guid("cfa9cd37-2267-4b9d-ae41-eb88c8e89881"), "Widowed" }
+                    { new Guid("633976ac-1367-42cc-812e-cbfcbbefc789"), "Married", true },
+                    { new Guid("f01436ec-ef7b-4ec0-bb58-58c5ce6932d8"), "Civil Partnership", true },
+                    { new Guid("b2d98283-9bb5-4fcf-a584-2728c4c7c757"), "Single", true },
+                    { new Guid("7cd83800-507f-4160-a216-a6d92fd1edb6"), "Divorced", true },
+                    { new Guid("97acd8f0-e48a-4adf-8957-0f869f64a587"), "Separated", true },
+                    { new Guid("cfa9cd37-2267-4b9d-ae41-eb88c8e89881"), "Widowed", true }
                 });
 
             migrationBuilder.CreateIndex(

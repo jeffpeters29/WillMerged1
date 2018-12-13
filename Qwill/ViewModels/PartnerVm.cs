@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Qwill.ViewModels
 {
-    public class CustomerVm
+    public class PartnerVm
     {
         public Guid WillId { get; set; }
 
@@ -16,23 +16,20 @@ namespace Qwill.ViewModels
         [Display(Name = "Last name")]
         public string LastName { get; set; }
 
-        public string Telephone { get; set; }
+        public bool JointAssets { get; set; }
 
         public DateVm DateOfBirth { get; set; }
 
         public AddressVm Address { get; set; }
 
-        public Guid? MaritalStatusId { get; set; }
-
-        public Customer ToCustomer()
+        public Partner ToPartner()
         {
-            return new Customer
+            return new Partner
             {
                 FirstName = FirstName,
                 LastName = LastName,
                 DateOfBirth = DateOfBirth.ToDate(),
-                Address = Address.ToAddress(),
-                Telephone = Telephone
+                Address = Address.ToAddress()
             };
         }
     }

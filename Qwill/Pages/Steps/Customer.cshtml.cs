@@ -1,5 +1,4 @@
-﻿using ApplicationCore.Helpers;
-using ApplicationCore.Interfaces;
+﻿using ApplicationCore.Interfaces;
 using Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -25,7 +24,7 @@ namespace Qwill.Pages.Steps
 
         public CustomerModel(IWillVmService willVmService, ICustomerVmService customerVmService,
                              IMaritalStatusVmService maritalStatusService,
-                             IAppLogger<CustomerModel> appLogger, SignInManager<ApplicationUser> signInManager, 
+                             IAppLogger<CustomerModel> appLogger, SignInManager<ApplicationUser> signInManager,
                              UserManager<ApplicationUser> userManager)
         {
             _willVmService = willVmService;
@@ -48,7 +47,7 @@ namespace Qwill.Pages.Steps
 
         [TempData]
         public string ErrorMessage { get; set; }
-       
+
         public async Task OnGet(Guid id)
         {
             MaritalStatusInfo = _maritalStatusService.GetAll();
@@ -120,23 +119,33 @@ namespace Qwill.Pages.Steps
         {
             if (!ModelState.IsValid)
             {
+                MaritalStatusInfo = _maritalStatusService.GetAll();
                 return Page();
             }
 
             var willId = _willVmService.Post(WillInfo);
-
             CustomerInfo.WillId = willId ?? Guid.Empty;
-
             var customerId = _customerVmService.Post(CustomerInfo);
 
             //Error
-            if (willId == null)
+            if (willId == null || customerId == null)
             {
                 _logger.LogWarning("Customer OnPost exception", _errorDefaultMessage);
+
+                MaritalStatusInfo = _maritalStatusService.GetAll();
                 return Page();
             }
 
-            return RedirectToPage("/Steps/ChildrenExisting", new { id = willId.Value });
+            return RedirectToPage(GetNextStep(), new { id = willId.Value });
+        }
+
+        private string GetNextStep()
+        {
+            var maritalStatus = _maritalStatusService.Get(CustomerInfo.MaritalStatusId);
+
+            return (maritalStatus.Description == "Married" || maritalStatus.Description == "Civil Partnership")
+                ? "/Steps/Partner"
+                : "/Steps/ChildrenExisting";
         }
     }
 }

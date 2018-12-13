@@ -104,6 +104,7 @@ namespace Qwill.Services
                     Address = customerVm.Address.ToAddress(),
                     Telephone = customerVm.Telephone,
                     MaritalStatusId = customerVm.MaritalStatusId,
+                    //MaritalStatus = _maritalStatusVmService.Get(customerVm.MaritalStatusId),
                     UpdatedUtc = DateTime.UtcNow
                 };
 

@@ -1,0 +1,55 @@
+﻿@page
+@model Qwill.Pages.Steps.PartnerModel
+@{
+    ViewData["Title"] = "Partner";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h2>Partner</h2>
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-6 offset-3">
+            <h5>Your details</h5>
+
+            <div class="mt-3">
+                <partial name="_ErrorMessages" for="ErrorMessage" />
+
+                <form method="post">
+                    <input type="hidden" asp-for="WillInfo.Id" />
+                    <input type="hidden" asp-for="WillInfo.WillStatus" />
+                    <input type="hidden" asp-for="WillInfo.UserName" />
+
+                    <div class="mb-3">
+                        <label asp-for="PartnerInfo.FirstName"></label>
+                        <input asp-for="PartnerInfo.FirstName" class="form-control" placeholder="Name *" />
+                        <span asp-validation-for="PartnerInfo.FirstName" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="PartnerInfo.LastName"></label>
+                        <input asp-for="PartnerInfo.LastName" class="form-control" placeholder="Name *" />
+                        <span asp-validation-for="PartnerInfo.LastName" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <partial name="_Date" for="PartnerInfo.DateOfBirth" />
+                    </div>
+
+                    <div class="mb-3">
+                        <partial name="_Address" for="PartnerInfo.Address" />
+                    </div>
+
+                    <button class="btn btn-primary btn-block" type="submit">Next</button>
+                    <button class="btn btn-link" asp-page-handler="GoBack">Go Back</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/PAF.js"></script>
+    <script src="~/js/partner.js"></script>
+}

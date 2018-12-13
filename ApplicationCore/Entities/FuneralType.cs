@@ -9,6 +9,8 @@ namespace ApplicationCore.Entities
 
         public string Description { get; set; }
 
+        public bool IsActive { get; set; }
+
         public ICollection<Will> Wills { get; set; }
     }
 }

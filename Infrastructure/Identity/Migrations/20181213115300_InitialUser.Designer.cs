@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Infrastructure.Migrations.AppIdentityDb
+namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AppIdentityDbContext))]
-    [Migration("20181207154859_Initial")]
-    partial class Initial
+    [Migration("20181213115300_InitialUser")]
+    partial class InitialUser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

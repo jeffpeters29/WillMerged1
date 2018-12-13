@@ -1,7 +1,8 @@
 ﻿@model ViewModels.MaritalStatusVm
 @{
     const string selectTxt = "--Select--";
-    const string selectVal = "00000000-0000-0000-0000-000000000000";
+    const string selectVal = "";
+    //const string selectVal = "00000000-0000-0000-0000-000000000000";
 }
 
 <div>
@@ -14,7 +15,6 @@
                 onchange="MaritalStatusChanged()">
                 <option value="@selectVal">@selectTxt</option>
         </select>
-        <span asp-validation-for="@Model.SelectedMaritalStatus" class="text-danger"></span>
-        <input type="hidden" asp-for="@Model.SelectedMaritalStatus" id="id_maritalstatus" />
+        <span asp-validation-for="@Model.SelectedMaritalStatus" class="text-danger"></span>       
     </div>
 </div>

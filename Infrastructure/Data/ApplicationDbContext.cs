@@ -68,13 +68,17 @@ namespace Infrastructure.Data
             builder.HasKey(f => f.Id);
 
             builder.Property(f => f.Description).IsRequired(true).HasMaxLength(50);
+
+            builder.Property(m => m.IsActive).IsRequired(true);
         }
 
         private void ConfigureMaritalStatus(EntityTypeBuilder<MaritalStatus> builder)
         {
-            builder.HasKey(f => f.Id);
+            builder.HasKey(m => m.Id);
 
-            builder.Property(f => f.Description).IsRequired(true).HasMaxLength(50);
+            builder.Property(m => m.Description).IsRequired(true).HasMaxLength(50);
+
+            builder.Property(m => m.IsActive).IsRequired(true);
         }
 
         private void ConfigureRelationship(EntityTypeBuilder<Relationship> builder)
@@ -82,6 +86,8 @@ namespace Infrastructure.Data
             builder.HasKey(r => r.Id);
 
             builder.Property(r => r.Description).IsRequired(true).HasMaxLength(50);
+
+            builder.Property(m => m.IsActive).IsRequired(true);
         }
 
         private void ConfigureWill(EntityTypeBuilder<Will> builder)
